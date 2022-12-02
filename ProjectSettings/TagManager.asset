@@ -41,3 +41,15 @@ TagManager:
   - name: Default
     uniqueID: 0
     locked: 0
+  - name: Ground
+    uniqueID: 3903685359
+    locked: 0
+  - name: Ways
+    uniqueID: 124941053
+    locked: 0
+  - name: World
+    uniqueID: 206142495
+    locked: 0
+  - name: UI
+    uniqueID: 597303337
+    locked: 0

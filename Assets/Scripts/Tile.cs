@@ -9,6 +9,23 @@ namespace Gridsystem
     {
         public int x;
         public int y;
+
+        private Vector2 startScale;
+
+        private void Start()
+        {
+            startScale = transform.localScale;
+        }
+
+        public void Select()
+        {
+            transform.localScale = startScale * 1.1f;
+        }
+
+        public void Deselect()
+        {
+            transform.localScale = startScale;
+        }
     }
 
     public struct TileData

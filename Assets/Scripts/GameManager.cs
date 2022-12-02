@@ -21,24 +21,11 @@ public enum BuildState
 
 public class GameManager : MonoBehaviour
 {
-    #region Singleton
-    public static GameManager Instance { get; private set; }
-    private void Awake()
-    {
-        if (Instance)
-        {
-            Destroy(gameObject);
-            return;
-        }
-
-        Instance = this;
-    }
-    #endregion
-
     #region References
     [SerializeField] private Grid grid = null;
     [SerializeField] private Pathfinder pathfinder = null;
     [SerializeField] private CameraController cameraController = null;
+    [SerializeField] private UIController uiController = null;
     #endregion
 
     #region States
@@ -53,6 +40,7 @@ public class GameManager : MonoBehaviour
     #endregion
 
     #region Properties
+    public float WorldTimeScale { get; private set; } = 1f;
     public Tile SelectedTile { get; private set; } = null;
     public GameObject SelectedObject { get; private set; } = null;
     #endregion
@@ -65,7 +53,8 @@ public class GameManager : MonoBehaviour
 
     private void Update()
     {
-        cameraController.MoveCamera(MousePosition);
+        if (!uiController.IsBuildingUIActive)
+            cameraController.MoveCamera(MousePosition);
     }
 
     public void OnMousePosition(InputAction.CallbackContext context)
@@ -83,12 +72,12 @@ public class GameManager : MonoBehaviour
         if (context.started)
         {
             if (SelectedTile)
-                SelectedTile.transform.localScale = Vector3.one;
+                SelectedTile.Deselect();
 
             SelectedTile = grid.GetGridElement(MouseWorldPosition);
 
             if (SelectedTile)
-                SelectedTile.transform.localScale = Vector3.one * 0.9f;
+                SelectedTile.Select();
         }
     }
 }

@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b0382c82844c7f4418ebf13b83fffa10, type: 3}
+  m_Name: CandyCottonStand
+  m_EditorClassIdentifier: 
+  <Name>k__BackingField: Candy Cotton Stand
+  <ShopSprite>k__BackingField: {fileID: -1940388731, guid: 949520d88d7da954ba894a24f0c2ba91, type: 3}
+  <Prefab>k__BackingField: {fileID: 0}
+  <Cost>k__BackingField: 100
+  <Size>k__BackingField: {x: 1, y: 1}
