@@ -70,7 +70,7 @@ TextureImporter:
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 1
+    textureCompression: 0
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -3532,6 +3532,7 @@ TextureImporter:
       winter_global_shadow_115: 1972596879
       winter_global_shadow_153: 1894577458
       winter_global_shadow_113: 1923690263
+      winter_global_shadow_120: -958957757
       winter_global_shadow_1: 2134535095
       winter_global_shadow_78: -1751713974
       winter_global_shadow_81: -1182074023
@@ -3544,11 +3545,10 @@ TextureImporter:
       winter_global_shadow_37: 859051625
       winter_global_shadow_42: 811887881
       winter_global_shadow_2: -1160433555
-      winter_global_shadow_12: 742085492
       winter_global_shadow_67: -11513678
       winter_global_shadow_89: 2127050151
-      winter_global_shadow_120: -958957757
       winter_global_shadow_147: -1649121077
+      winter_global_shadow_12: 742085492
       winter_global_shadow_6: -290436152
       winter_global_shadow_51: -1940388731
       winter_global_shadow_5: 1657156356
