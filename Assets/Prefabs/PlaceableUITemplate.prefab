@@ -60,6 +60,8 @@ MonoBehaviour:
   <Image>k__BackingField: {fileID: 2847995998529499895}
   <NameText>k__BackingField: {fileID: 5465488282329602662}
   <CostText>k__BackingField: {fileID: 6807137468415403493}
+  <BaseColor>k__BackingField: {r: 0.49411765, g: 0.38039216, b: 0.2509804, a: 1}
+  <NotEnoughMoneyColor>k__BackingField: {r: 0.6509804, g: 0.16862746, b: 0.16862746, a: 1}
 --- !u!114 &7379260569429393611
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -554,8 +556,8 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4282409342
-  m_fontColor: {r: 0.49411768, g: 0.3803922, b: 0.2509804, a: 1}
+    rgba: 4281019302
+  m_fontColor: {r: 0.6509434, g: 0.16887684, b: 0.16887684, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:

@@ -93,6 +93,25 @@ namespace Gridsystem
             GetGridElement(x, y, out tile);
         }
 
+        public List<Tile> GetGridElements(Vector3 worldPosition, Vector2Int size)
+        {
+            List<Tile> tiles = new List<Tile>();
+
+            int x, y;
+            GetXY(worldPosition, out x, out y);
+
+            for (int i = 0; i < size.x; i++)
+            {
+                for (int j = 0; j < size.y; j++)
+                {
+                    GetGridElement(x + i, y + j, out Tile tile);
+                    tiles.Add(tile);
+                }
+            }
+
+            return tiles;
+        }
+
         public void GetXY(Vector3 worldPosition, out int x, out int y)
         {
             x = Mathf.RoundToInt((worldPosition - OriginPosition).x / CellSize);

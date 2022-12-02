@@ -6,6 +6,7 @@ public class UIController : MonoBehaviour
 {
     [field: SerializeField] public GameManager Manager { get; private set; } = null;
     [field: SerializeField] public GameObject GameUI { get; private set; } = null;
+    [field: SerializeField] public TMPro.TMP_Text MoneyText { get; private set; } = null;
     [field: SerializeField] public GameObject BuildingUI { get; private set; } = null;
     [field: SerializeField] public GameObject BuildingsPanel { get; private set; } = null;
     [field: SerializeField] public GameObject DecorationPanel { get; private set; } = null;
@@ -24,6 +25,11 @@ public class UIController : MonoBehaviour
         GameUI.SetActive(true);
         BuildingUI.SetActive(false);
         OpenBuildingsPanel();
+    }
+
+    private void Update()
+    {
+        MoneyText.text = Manager.Money.ToString();
     }
 
     public void OpenBuildingsUI()
@@ -59,6 +65,10 @@ public class UIController : MonoBehaviour
 
     public void PlaceObject(Placeable obj)
     {
-        // Manager.PlaceObject(obj);
+        if (Manager.Money >= obj.Cost)
+        {
+            Manager.StartPlacingObject(obj);
+            CloseBuildingsUI();
+        }
     }
 }

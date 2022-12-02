@@ -10,21 +10,35 @@ namespace Gridsystem
         public int x;
         public int y;
 
-        private Vector2 startScale;
+        public GameObject currentObject = null;
+
+        [SerializeField] private GameObject canBePlacedVizualizer = null;
+        [SerializeField] private GameObject canNotBePlacedVizualizer = null;
 
         private void Start()
         {
-            startScale = transform.localScale;
+            canBePlacedVizualizer.SetActive(false);
+            canNotBePlacedVizualizer.SetActive(false);
         }
 
         public void Select()
         {
-            transform.localScale = startScale * 1.1f;
+            if (currentObject == null)
+            {
+                canBePlacedVizualizer.SetActive(true);
+                canNotBePlacedVizualizer.SetActive(false);
+            }
+            else
+            {
+                canBePlacedVizualizer.SetActive(false);
+                canNotBePlacedVizualizer.SetActive(true);
+            }
         }
 
         public void Deselect()
         {
-            transform.localScale = startScale;
+            canBePlacedVizualizer.SetActive(false);
+            canNotBePlacedVizualizer.SetActive(false);
         }
     }
 
