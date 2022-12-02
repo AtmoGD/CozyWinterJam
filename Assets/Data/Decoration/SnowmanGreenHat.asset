@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b0382c82844c7f4418ebf13b83fffa10, type: 3}
+  m_Name: SnowmanGreenHat
+  m_EditorClassIdentifier: 
+  <Name>k__BackingField: A Snowman with a green hat
+  <ShopSprite>k__BackingField: {fileID: 2134535095, guid: 949520d88d7da954ba894a24f0c2ba91, type: 3}
+  <Prefab>k__BackingField: {fileID: 6716617276300817655, guid: 1cba14c6793052c4cbb841e8b8b31777, type: 3}
+  <PreviewPrefab>k__BackingField: {fileID: 4642650945361639227, guid: bbdd81d91f1f71e40aec80f852862c0a, type: 3}
+  <Cost>k__BackingField: 5
+  <Size>k__BackingField: {x: 1, y: 1}
