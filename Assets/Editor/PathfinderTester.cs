@@ -10,7 +10,9 @@ namespace Gridsystem
     public class PathfinderTester : Editor
     {
         [SerializeField] private Grid grid = null;
-        private List<Vector2Int> path;
+        [SerializeField] private Vector2Int startPos = new Vector2Int(0, 0);
+        [SerializeField] private Vector2Int targetPos = new Vector2Int(0, 0);
+        [SerializeField] private List<Vector2Int> path;
 
         public override void OnInspectorGUI()
         {
@@ -18,9 +20,16 @@ namespace Gridsystem
 
             Pathfinder pathfinder = (Pathfinder)target;
 
+            if (!grid)
+                grid = FindObjectOfType<Grid>();
+
+            startPos = EditorGUILayout.Vector2IntField("Start Pos", startPos);
+            targetPos = EditorGUILayout.Vector2IntField("Target Pos", targetPos);
+
             if (GUILayout.Button("Find Path"))
             {
-                path = pathfinder.FindPath(grid, new Vector2Int(0, 0), new Vector2Int(5, 5));
+                path = pathfinder.FindPath(grid, startPos, targetPos);
+                Debug.Log("Path Length: " + path.Count);
             }
 
             if (GUILayout.Button("Clear Path"))
@@ -34,9 +43,24 @@ namespace Gridsystem
             if (path != null)
             {
                 Handles.color = Color.red;
-                foreach (Vector2Int pathNode in path)
+                // for (int i = 0; i < path.Count - 1; i++)
+                // {
+                //     Vector3 startPos = new Vector3(path[i].x, path[i].y);
+                //     Vector3 endPos = new Vector3(path[i + 1].x, path[i + 1].y);
+                //     Vector3 dir = (endPos - startPos).normalized;
+                //     endPos = startPos + dir * 0.9f;
+                //     Handles.DrawLine(startPos, endPos);
+                // }
+
+                Handles.color = Color.green;
+                for (int j = path.Count - 1; j > 0; j--)
                 {
-                    Handles.DrawWireCube(new Vector3(pathNode.x, 0, pathNode.y), Vector3.one * .5f);
+                    Vector3 startPos = new Vector3(path[j].x, path[j].y);
+                    Vector3 endPos = new Vector3(path[j - 1].x, path[j - 1].y);
+
+                    Vector3 dir = (endPos - startPos).normalized;
+                    endPos = startPos + dir * 0.9f;
+                    Handles.DrawLine(startPos, endPos);
                 }
             }
         }

@@ -21,6 +21,7 @@ namespace Gridsystem
         {
             NativeList<int2> pathList = new NativeList<int2>(grid.Width * grid.Height, Allocator.TempJob);
             NativeArray<TileData> gridElems = new NativeArray<TileData>(grid.Width * grid.Height, Allocator.TempJob);
+
             foreach (TileData tile in grid.GridArray)
             {
                 gridElems[tile.index] = tile;
@@ -69,7 +70,6 @@ namespace Gridsystem
 
             private void FindPath(int2 _startPosition, int2 _endPosition)
             {
-
                 NativeArray<TileData> pathNodeArray = new NativeArray<TileData>(gridSize.x * gridSize.y, Allocator.Temp);
 
                 foreach (TileData gridElement in gridElements)
@@ -177,7 +177,7 @@ namespace Gridsystem
                 }
                 else
                 {
-                    // path = CalculatePath(pathNodeArray, endNode);
+                    path = CalculatePath(pathNodeArray, endNode);
                 }
 
                 neighbourOffsets.Dispose();

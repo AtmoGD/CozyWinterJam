@@ -1,11 +1,11 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
-
+using System;
 
 namespace Gridsystem
 {
+    [Serializable]
     public class Grid : MonoBehaviour
     {
         [field: SerializeField] public int Width { get; private set; } = 10;
@@ -13,7 +13,7 @@ namespace Gridsystem
         [field: SerializeField] public float CellSize { get; private set; } = 1f;
         [field: SerializeField] public Vector3 OriginPosition { get; private set; } = Vector3.zero;
 
-        [SerializeField] private Tile gridObject = null;
+        [field: SerializeField] private Tile gridObject = null;
 
         [field: SerializeField] public Tile[,] GridElements { get; private set; } = null;
         [field: SerializeField] public List<TileData> GridArray { get; private set; } = null;
@@ -64,6 +64,39 @@ namespace Gridsystem
 
             GridElements = null;
             GridArray = null;
+        }
+
+        public void GetGridElement(int x, int y, out Tile tile)
+        {
+            if (x >= 0 && y >= 0 && x < Width && y < Height)
+            {
+                tile = GridElements[x, y];
+            }
+            else
+            {
+                tile = null;
+            }
+        }
+
+        public Tile GetGridElement(Vector3 worldPosition)
+        {
+            int x, y;
+            GetXY(worldPosition, out x, out y);
+            GetGridElement(x, y, out Tile tile);
+            return tile;
+        }
+
+        public void GetGridElement(Vector3 worldPosition, out Tile tile)
+        {
+            int x, y;
+            GetXY(worldPosition, out x, out y);
+            GetGridElement(x, y, out tile);
+        }
+
+        public void GetXY(Vector3 worldPosition, out int x, out int y)
+        {
+            x = Mathf.RoundToInt((worldPosition - OriginPosition).x / CellSize);
+            y = Mathf.RoundToInt((worldPosition - OriginPosition).y / CellSize);
         }
     }
 }
