@@ -13,10 +13,15 @@ namespace Gridsystem
         [SerializeField] private Vector2Int startPos = new Vector2Int(0, 0);
         [SerializeField] private Vector2Int targetPos = new Vector2Int(0, 0);
         [SerializeField] private List<Vector2Int> path;
+        [SerializeField] private bool showEditor = false;
 
         public override void OnInspectorGUI()
         {
             base.OnInspectorGUI();
+
+            showEditor = EditorGUILayout.Toggle("Show Debugger Options", showEditor);
+            if (!showEditor) return;
+
 
             Pathfinder pathfinder = (Pathfinder)target;
 
@@ -40,7 +45,7 @@ namespace Gridsystem
 
         private void OnSceneGUI()
         {
-            if (path != null)
+            if (path != null && showEditor)
             {
                 Handles.color = Color.red;
                 // for (int i = 0; i < path.Count - 1; i++)

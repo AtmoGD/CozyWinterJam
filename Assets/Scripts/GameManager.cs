@@ -38,6 +38,7 @@ public class GameManager : MonoBehaviour
     #region References
     [SerializeField] private Grid grid = null;
     [SerializeField] private Pathfinder pathfinder = null;
+    [SerializeField] private CameraController cameraController = null;
     #endregion
 
     #region States
@@ -60,6 +61,11 @@ public class GameManager : MonoBehaviour
     {
         grid.DeleteGrid();
         grid.CreateGrid();
+    }
+
+    private void Update()
+    {
+        cameraController.MoveCamera(MousePosition);
     }
 
     public void OnMousePosition(InputAction.CallbackContext context)
