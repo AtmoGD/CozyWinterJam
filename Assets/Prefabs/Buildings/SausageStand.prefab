@@ -41,6 +41,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3519592961728194871}
   - component: {fileID: 6683229248869801078}
+  - component: {fileID: 6443618840136865599}
   m_Layer: 0
   m_Name: SausageStand
   m_TagString: Untagged
@@ -79,7 +80,23 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   <Data>k__BackingField: {fileID: 11400000, guid: f3a9ba7ce23592441addb0a8f6d52adf, type: 2}
-  <CustomerPosition>k__BackingField: {fileID: 7462821645090593096}
+  <CustomerPositions>k__BackingField:
+  - {fileID: 7462821645090593096}
+--- !u!114 &6443618840136865599
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6613827051153339679}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7f68f0d8657340c45a7ef843f139fd16, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sprites:
+  - {fileID: 66639295999713700}
+  - {fileID: 2087400115516814468}
 --- !u!1 &7655762651209644922
 GameObject:
   m_ObjectHideFlags: 0

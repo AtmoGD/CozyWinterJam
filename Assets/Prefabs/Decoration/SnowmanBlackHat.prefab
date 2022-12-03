@@ -94,6 +94,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8819489620334421455}
   - component: {fileID: 7241982959223852308}
+  - component: {fileID: 3426331409220879432}
   m_Layer: 0
   m_Name: SnowmanBlackHat
   m_TagString: Untagged
@@ -130,3 +131,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   <Data>k__BackingField: {fileID: 11400000, guid: 613b27e3df1ccbe42a004e2892b63979, type: 2}
+  <CustomerPosition>k__BackingField: {fileID: 0}
+--- !u!114 &3426331409220879432
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6726721693540609034}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7f68f0d8657340c45a7ef843f139fd16, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sprites:
+  - {fileID: 8517910236235941040}

@@ -1,5 +1,36 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &2063771769914499167
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7876542818229696132}
+  m_Layer: 0
+  m_Name: CustomerPos (1)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &7876542818229696132
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2063771769914499167}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0.31, y: -0.359, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 4060131886189259377}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &5218737728458648732
 GameObject:
   m_ObjectHideFlags: 0
@@ -41,6 +72,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4060131886189259377}
   - component: {fileID: 6070850929734229808}
+  - component: {fileID: 2702537929326088204}
   m_Layer: 0
   m_Name: CandyStand
   m_TagString: Untagged
@@ -63,6 +95,7 @@ Transform:
   - {fileID: 2561180262535762053}
   - {fileID: 6140172602315633898}
   - {fileID: 8697714617899291510}
+  - {fileID: 7876542818229696132}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -79,7 +112,24 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   <Data>k__BackingField: {fileID: 11400000, guid: a710263712c756f4b88705e299dba42e, type: 2}
-  <CustomerPosition>k__BackingField: {fileID: 8697714617899291510}
+  <CustomerPositions>k__BackingField:
+  - {fileID: 8697714617899291510}
+  - {fileID: 7876542818229696132}
+--- !u!114 &2702537929326088204
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6001451122032064089}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7f68f0d8657340c45a7ef843f139fd16, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sprites:
+  - {fileID: 607043946906854114}
+  - {fileID: 1474796999805450178}
 --- !u!1 &7115367210465867836
 GameObject:
   m_ObjectHideFlags: 0

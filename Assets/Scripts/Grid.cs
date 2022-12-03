@@ -81,10 +81,13 @@ namespace Gridsystem
             GridArray = null;
         }
 
-        public void GetGridElement(int x, int y, out Tile tile)
+        public void GetGridElement(int x, int y, out Tile tile, bool clamp = true)
         {
-            x = Mathf.Clamp(x, 0, Width - 1);
-            y = Mathf.Clamp(y, 0, Height - 1);
+            if (clamp)
+            {
+                x = Mathf.Clamp(x, 0, Width - 1);
+                y = Mathf.Clamp(y, 0, Height - 1);
+            }
 
             if (x >= 0 && y >= 0 && x < Width && y < Height)
             {
@@ -111,7 +114,7 @@ namespace Gridsystem
             GetGridElement(x, y, out tile);
         }
 
-        public List<Tile> GetGridElements(Vector3 worldPosition, Vector2Int size)
+        public List<Tile> GetGridElements(Vector3 worldPosition, Vector2Int size, bool clamp = true)
         {
             List<Tile> tiles = new List<Tile>();
 
@@ -122,8 +125,9 @@ namespace Gridsystem
             {
                 for (int j = 0; j < size.y; j++)
                 {
-                    GetGridElement(x + i, y + j, out Tile tile);
-                    tiles.Add(tile);
+                    GetGridElement(x + i, y + j, out Tile tile, clamp);
+                    if (tile != null)
+                        tiles.Add(tile);
                 }
             }
 

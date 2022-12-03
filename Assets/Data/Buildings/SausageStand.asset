@@ -18,3 +18,6 @@ MonoBehaviour:
   <PreviewPrefab>k__BackingField: {fileID: 8142589739161618230, guid: 4e61c78fb60d48241bce930806701f2e, type: 3}
   <Cost>k__BackingField: 10
   <Size>k__BackingField: {x: 3, y: 2}
+  <Type>k__BackingField: 0
+  <WaitTime>k__BackingField: 1
+  <MoneyRange>k__BackingField: {x: 4, y: 10}

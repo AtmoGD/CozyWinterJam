@@ -94,6 +94,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5411827848157886253}
   - component: {fileID: 6196674865768636406}
+  - component: {fileID: 8579250621281786083}
   m_Layer: 0
   m_Name: SnowmanChristmasHat
   m_TagString: Untagged
@@ -130,3 +131,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   <Data>k__BackingField: {fileID: 11400000, guid: 1974ade444375c74d8597920d540cdf4, type: 2}
+  <CustomerPosition>k__BackingField: {fileID: 0}
+--- !u!114 &8579250621281786083
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7792826499134242536}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7f68f0d8657340c45a7ef843f139fd16, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sprites:
+  - {fileID: 5136920450319947346}

@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3184987161997416542}
   - component: {fileID: 3663386678463459461}
+  - component: {fileID: 4096408968122912820}
   m_Layer: 0
   m_Name: CatSnowman
   m_TagString: Untagged
@@ -46,6 +47,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   <Data>k__BackingField: {fileID: 11400000, guid: a128f776cdc2b344c86b2a450ed9a90f, type: 2}
+  <CustomerPosition>k__BackingField: {fileID: 0}
+--- !u!114 &4096408968122912820
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 796110578394911131}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7f68f0d8657340c45a7ef843f139fd16, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sprites:
+  - {fileID: 2333979361827354913}
 --- !u!1 &6060967414131848574
 GameObject:
   m_ObjectHideFlags: 0

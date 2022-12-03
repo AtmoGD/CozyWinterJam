@@ -192,7 +192,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8416906667340965138}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.803, y: -0.37, z: 0}
+  m_LocalPosition: {x: 0.721, y: -0.37, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -209,6 +209,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1195656340714671751}
   - component: {fileID: 9002785447765179334}
+  - component: {fileID: 4415188194058824267}
   m_Layer: 0
   m_Name: JewelryStand
   m_TagString: Untagged
@@ -247,4 +248,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   <Data>k__BackingField: {fileID: 11400000, guid: 24a38b58e7eded9479a07ba04ce170a0, type: 2}
-  <CustomerPosition>k__BackingField: {fileID: 1672408090254860469}
+  <CustomerPositions>k__BackingField:
+  - {fileID: 1672408090254860469}
+--- !u!114 &4415188194058824267
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8901013458077012655}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7f68f0d8657340c45a7ef843f139fd16, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sprites:
+  - {fileID: 2351732415059117588}
+  - {fileID: 4375290355906958132}

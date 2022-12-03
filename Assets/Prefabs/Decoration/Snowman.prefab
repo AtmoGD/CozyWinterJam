@@ -94,6 +94,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8793618549949644082}
   - component: {fileID: 7272358264882845161}
+  - component: {fileID: 7445741897304984655}
   m_Layer: 0
   m_Name: Snowman
   m_TagString: Untagged
@@ -130,3 +131,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   <Data>k__BackingField: {fileID: 11400000, guid: 6434d022754bef1429c4ea1d32b03e2a, type: 2}
+  <CustomerPosition>k__BackingField: {fileID: 0}
+--- !u!114 &7445741897304984655
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6716617276300817655}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7f68f0d8657340c45a7ef843f139fd16, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sprites:
+  - {fileID: 8528014859903589453}

@@ -125,6 +125,7 @@ GameObject:
   m_Component:
   - component: {fileID: 583124860948752896}
   - component: {fileID: 7237335495106633537}
+  - component: {fileID: 1006063420848863648}
   m_Layer: 0
   m_Name: CandyCottonStand
   m_TagString: Untagged
@@ -162,4 +163,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   <Data>k__BackingField: {fileID: 11400000, guid: cd2c2e7dc150a7248b37f467a5f19bc6, type: 2}
-  <CustomerPosition>k__BackingField: {fileID: 1897128454872675477}
+  <CustomerPositions>k__BackingField:
+  - {fileID: 1897128454872675477}
+--- !u!114 &1006063420848863648
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7135601178722154024}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7f68f0d8657340c45a7ef843f139fd16, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sprites:
+  - {fileID: 4045208592116064915}

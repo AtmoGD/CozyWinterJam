@@ -16,6 +16,23 @@ public class DayTimeController : MonoBehaviour
     [field: SerializeField] public GameManager GameManager { get; private set; } = null;
     [field: SerializeField] public TMP_Text HourText { get; private set; } = null;
     [field: SerializeField] public TMP_Text MinuteText { get; private set; } = null;
+    [SerializeField] public AnimationCurve DayTimeCurve = null;
+    public float DayTimePercentage
+    {
+        get
+        {
+            return (DayTime.Hour * 60 + DayTime.Minute) / (24 * 60);
+        }
+    }
+
+    public float DayTimeCurveValue
+    {
+        get
+        {
+            return DayTimeCurve.Evaluate(DayTimePercentage);
+        }
+    }
+
 
     private void Update()
     {

@@ -209,6 +209,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1794639217861881802}
   - component: {fileID: 8394802533184363147}
+  - component: {fileID: 302018536455892590}
   m_Layer: 0
   m_Name: PretzelStand
   m_TagString: Untagged
@@ -247,4 +248,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   <Data>k__BackingField: {fileID: 11400000, guid: e1ee12bf2bc33e243b06d5a13d679456, type: 2}
-  <CustomerPosition>k__BackingField: {fileID: 5606132961049923008}
+  <CustomerPositions>k__BackingField:
+  - {fileID: 5606132961049923008}
+--- !u!114 &302018536455892590
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8356083122139263970}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7f68f0d8657340c45a7ef843f139fd16, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sprites:
+  - {fileID: 2941710292008527705}
+  - {fileID: 3803327968254587513}

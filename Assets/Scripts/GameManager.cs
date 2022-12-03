@@ -41,6 +41,7 @@ public class GameManager : MonoBehaviour
     [field: SerializeField] public Pathfinder Pathfinder { get; private set; } = null;
     [field: SerializeField] public CameraController CameraController { get; private set; } = null;
     [field: SerializeField] public UIController UIController { get; private set; } = null;
+    [field: SerializeField] public DayTimeController DayTimeController { get; private set; } = null;
     [field: SerializeField] public Transform CustomerStart { get; private set; } = null;
     [field: SerializeField] public Transform CustomerEndTile { get; private set; } = null;
     [field: SerializeField] public Transform CustomerEnd { get; private set; } = null;
@@ -59,13 +60,16 @@ public class GameManager : MonoBehaviour
     #endregion
 
     #region Properties
-    public int Money { get; private set; } = 1000;
+    public int Money { get; set; } = 1000;
     public float WorldTimeScale { get; private set; } = 1f;
     public List<PlaceableObject> PlacedObjects { get; private set; } = new List<PlaceableObject>();
+    public List<PlaceableObject> PlacedBuildings { get { return PlacedObjects.FindAll(x => x.Data.Type == ObjectType.Building); } }
+    public List<PlaceableObject> PlacedDecorations { get { return PlacedObjects.FindAll(x => x.Data.Type == ObjectType.Decoration); } }
     public Tile SelectedTile { get; private set; } = null;
     public Placeable SelectedObject { get; private set; } = null;
     public GameObject PreviewObject { get; private set; } = null;
     public List<Tile> LastSelectedTiles { get; private set; } = new List<Tile>();
+    public PlaceableObject EditObject { get; private set; } = null;
     #endregion
 
     #region Data
@@ -148,6 +152,19 @@ public class GameManager : MonoBehaviour
                 }
                 break;
             case BuildState.Edit:
+                if (EditObject != null)
+                {
+                    Tile currentTile = Grid.GetGridElement(MouseWorldPosition);
+                    if (currentTile)
+                        EditObject.transform.position = currentTile.transform.position;
+
+                    LastSelectedTiles.ForEach(t => t?.Deselect());
+
+                    List<Tile> tiles = Grid.GetGridElements(MouseWorldPosition, SelectedObject.Size);
+                    tiles.ForEach(t => t?.Select());
+
+                    LastSelectedTiles = tiles;
+                }
                 break;
             case BuildState.Delete:
                 break;
@@ -163,6 +180,16 @@ public class GameManager : MonoBehaviour
         gameState = GameState.Building;
 
         PreviewObject = Instantiate(SelectedObject.PreviewPrefab, MouseWorldPosition, Quaternion.identity);
+    }
+
+    public void ChangeToEditMode()
+    {
+
+    }
+
+    public void ChangeToDeleteMode()
+    {
+
     }
 
     public void OnMousePosition(InputAction.CallbackContext context)
@@ -209,44 +236,101 @@ public class GameManager : MonoBehaviour
             case BuildState.New:
                 if (SelectedObject != null)
                 {
-                    List<Tile> tiles = Grid.GetGridElements(MouseWorldPosition, SelectedObject.Size);
-                    if (tiles.TrueForAll(t => t != null && t.currentObject == null))
+                    List<Tile> tiles = Grid.GetGridElements(MouseWorldPosition, SelectedObject.Size, false);
+                    if (tiles.Count == (SelectedObject.Size.x * SelectedObject.Size.y))
                     {
-                        Money -= SelectedObject.Cost;
-
-                        Tile tile = Grid.GetGridElement(MouseWorldPosition);
-                        GameObject newObject = Instantiate(SelectedObject.Prefab, tile.transform.position, Quaternion.identity);
-
-                        PlaceableObject placeableObject = newObject.GetComponent<PlaceableObject>();
-                        if (placeableObject)
-                            PlacedObjects.Add(placeableObject);
-
-
-                        tiles.ForEach(t => t.currentObject = newObject);
-
-                        foreach (Tile t in tiles)
+                        if (tiles.TrueForAll(t => t != null && t.currentObject == null))
                         {
-                            PathNode tileData = Grid.GridArray.Find(n => n.x == t.x && n.y == t.y);
-                            Grid.GridArray.Remove(tileData);
+                            Money -= SelectedObject.Cost;
 
-                            tileData.SetIsWalkable(false);
-                            Grid.GridArray.Add(tileData);
+                            Tile tile = Grid.GetGridElement(MouseWorldPosition);
+                            GameObject newObject = Instantiate(SelectedObject.Prefab, tile.transform.position, Quaternion.identity);
+
+                            PlaceableObject placeableObject = newObject.GetComponent<PlaceableObject>();
+                            if (placeableObject)
+                            {
+                                PlacedObjects.Add(placeableObject);
+                                placeableObject.placedOnTiles = tiles;
+                            }
+
+                            LayerOrderer layerOrderer = newObject.GetComponent<LayerOrderer>();
+                            if (layerOrderer)
+                            {
+                                layerOrderer.SetGameManager(this);
+                                layerOrderer.UpdateOrder(tile);
+                            }
+
+
+                            tiles.ForEach(t => t.currentObject = newObject);
+
+                            foreach (Tile t in tiles)
+                            {
+                                PathNode tileData = Grid.GridArray.Find(n => n.x == t.x && n.y == t.y);
+                                Grid.GridArray.Remove(tileData);
+
+                                tileData.SetIsWalkable(false);
+                                Grid.GridArray.Add(tileData);
+                            }
+
+                            Destroy(PreviewObject);
+
+                            PreviewObject = null;
+                            SelectedObject = null;
+
+                            gameState = GameState.Playing;
+                            buildState = BuildState.New;
+
+                            LastSelectedTiles.ForEach(t => t?.Deselect());
+                            LastSelectedTiles.Clear();
                         }
-
-                        Destroy(PreviewObject);
-
-                        PreviewObject = null;
-                        SelectedObject = null;
-
-                        gameState = GameState.Playing;
-                        buildState = BuildState.New;
-
-                        LastSelectedTiles.ForEach(t => t?.Deselect());
-                        LastSelectedTiles.Clear();
                     }
                 }
                 break;
             case BuildState.Edit:
+                if (EditObject)
+                {
+                    List<Tile> tiles = Grid.GetGridElements(MouseWorldPosition, EditObject.Data.Size, false);
+                    if (tiles.Count == (SelectedObject.Size.x * SelectedObject.Size.y))
+                    {
+                        if (tiles.TrueForAll(t => t != null && t.currentObject == null))
+                        {
+                            Tile tile = Grid.GetGridElement(MouseWorldPosition);
+                            EditObject.transform.position = tile.transform.position;
+
+                            PlaceableObject placeableObject = EditObject.GetComponent<PlaceableObject>();
+                            if (placeableObject)
+                            {
+                                PlacedObjects.Add(placeableObject);
+                                placeableObject.placedOnTiles = tiles;
+                            }
+
+                            LayerOrderer layerOrderer = EditObject.GetComponent<LayerOrderer>();
+                            if (layerOrderer)
+                            {
+                                layerOrderer.SetGameManager(this);
+                                layerOrderer.UpdateOrder(tile);
+                            }
+
+                            EditObject = null;
+                        }
+                    }
+                }
+                else
+                {
+                    Tile tile = Grid.GetGridElement(MouseWorldPosition);
+                    if (tile.currentObject != null)
+                    {
+                        EditObject = tile.currentObject.GetComponent<PlaceableObject>();
+                        foreach (Tile t in EditObject.placedOnTiles)
+                        {
+                            PathNode tileData = Grid.GridArray.Find(n => n.x == t.x && n.y == t.y);
+                            Grid.GridArray.Remove(tileData);
+
+                            tileData.SetIsWalkable(true);
+                            Grid.GridArray.Add(tileData);
+                        }
+                    }
+                }
                 break;
             case BuildState.Delete:
                 break;

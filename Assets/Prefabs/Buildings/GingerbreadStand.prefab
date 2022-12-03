@@ -24,12 +24,43 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 824767408645837319}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.53100014, y: -0.299, z: 0}
+  m_LocalPosition: {x: 0.119, y: -0.276, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 4447785610711299034}
   m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &3199638021531464534
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7567016352293470725}
+  m_Layer: 0
+  m_Name: CustomerPos (1)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &7567016352293470725
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3199638021531464534}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0.119, y: -0.276, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 4447785610711299034}
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &6244424490710822898
 GameObject:
@@ -41,6 +72,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4447785610711299034}
   - component: {fileID: 5899213874928731803}
+  - component: {fileID: 1899022449102143179}
   m_Layer: 0
   m_Name: GingerbreadStand
   m_TagString: Untagged
@@ -63,6 +95,7 @@ Transform:
   - {fileID: 2768283185814554926}
   - {fileID: 5825282362121760065}
   - {fileID: 5718863204032124486}
+  - {fileID: 7567016352293470725}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -79,7 +112,24 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   <Data>k__BackingField: {fileID: 11400000, guid: c760d1024dce1e74cbfa4072f22c5fef, type: 2}
-  <CustomerPosition>k__BackingField: {fileID: 5718863204032124486}
+  <CustomerPositions>k__BackingField:
+  - {fileID: 5718863204032124486}
+  - {fileID: 7567016352293470725}
+--- !u!114 &1899022449102143179
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6244424490710822898}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7f68f0d8657340c45a7ef843f139fd16, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sprites:
+  - {fileID: 976557924231510857}
+  - {fileID: 1267271866208317033}
 --- !u!1 &7448696246698631575
 GameObject:
   m_ObjectHideFlags: 0
@@ -105,7 +155,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7448696246698631575}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.5060002, y: 0.785, z: 0}
+  m_LocalPosition: {x: 0.5060002, y: 0.817, z: 0}
   m_LocalScale: {x: 3.5, y: 3.5, z: 3.5}
   m_ConstrainProportionsScale: 1
   m_Children: []
@@ -153,7 +203,7 @@ SpriteRenderer:
   m_SortingLayerID: 206142495
   m_SortingLayer: 3
   m_SortingOrder: 1
-  m_Sprite: {fileID: -2077570993, guid: 949520d88d7da954ba894a24f0c2ba91, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 0fb91baf06398464a9dce748f1384d7a, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -242,7 +292,7 @@ SpriteRenderer:
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 0.48, y: 0.52}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
