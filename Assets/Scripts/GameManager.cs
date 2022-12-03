@@ -118,7 +118,7 @@ public class GameManager : MonoBehaviour
 
     public void SpawnCustomer()
     {
-        if (PlacedObjects.Count == 0) return;
+        if (PlacedBuildings.Count == 0) return;
 
         customerSpawnTimer += Time.deltaTime;
         if (customerSpawnTimer >= CustomerSpawnTime)
@@ -220,13 +220,13 @@ public class GameManager : MonoBehaviour
 
     public void CheckClickPlaying()
     {
-        if (SelectedTile)
-            SelectedTile.Deselect();
+        // if (SelectedTile)
+        //     SelectedTile.Deselect();
 
-        SelectedTile = Grid.GetGridElement(MouseWorldPosition);
+        // SelectedTile = Grid.GetGridElement(MouseWorldPosition);
 
-        if (SelectedTile)
-            SelectedTile.Select();
+        // if (SelectedTile)
+        //     SelectedTile.Select();
     }
 
     public void CheckClickPlayingBuilding()

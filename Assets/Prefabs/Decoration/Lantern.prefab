@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 1064212852270696551}
   - component: {fileID: 6575759896362446981}
   - component: {fileID: 5694370289283628864}
+  - component: {fileID: 7803451698206160737}
   m_Layer: 0
   m_Name: Lantern
   m_TagString: Untagged
@@ -80,10 +81,27 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   <Lights>k__BackingField:
   - {fileID: 3333579043559095373}
+  <DayTimeController>k__BackingField: {fileID: 0}
+  <Inverted>k__BackingField: 1
+  <IntensityMultiplier>k__BackingField: 1
+--- !u!114 &7803451698206160737
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3971747639377963385}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 387cebe199aba3340b3b823191c5b23a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  <Lights>k__BackingField:
   - {fileID: 7916331088385099141}
   - {fileID: 4143059379096346429}
   <DayTimeController>k__BackingField: {fileID: 0}
   <Inverted>k__BackingField: 1
+  <IntensityMultiplier>k__BackingField: 5
 --- !u!1 &4592198168808466822
 GameObject:
   m_ObjectHideFlags: 0
