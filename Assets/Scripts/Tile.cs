@@ -42,7 +42,7 @@ namespace Gridsystem
         }
     }
 
-    public struct TileData
+    public struct PathNode
     {
         public int x;
         public int y;
@@ -59,6 +59,25 @@ namespace Gridsystem
         public void CalculateFCost()
         {
             fCost = gCost + hCost;
+        }
+
+        public void ChangeIsWalkable(bool value)
+        {
+            isWalkable = value;
+        }
+
+        public PathNode GetCopy()
+        {
+            PathNode copy = new PathNode();
+            copy.x = x;
+            copy.y = y;
+            copy.index = index;
+            copy.gCost = gCost;
+            copy.hCost = hCost;
+            copy.fCost = fCost;
+            copy.isWalkable = isWalkable;
+            copy.cameFromNodeIndex = cameFromNodeIndex;
+            return copy;
         }
     }
 }

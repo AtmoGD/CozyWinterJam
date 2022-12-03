@@ -21,11 +21,30 @@ public enum BuildState
 
 public class GameManager : MonoBehaviour
 {
+    #region Singleton
+    public static GameManager Instance { get; private set; }
+    private void Awake()
+    {
+        if (Instance)
+        {
+            Destroy(gameObject);
+            return;
+        }
+
+        Instance = this;
+    }
+    #endregion
+
+
     #region References
-    [SerializeField] private Grid grid = null;
-    [SerializeField] private Pathfinder pathfinder = null;
-    [SerializeField] private CameraController cameraController = null;
-    [SerializeField] private UIController uiController = null;
+    [field: SerializeField] public Grid Grid { get; private set; } = null;
+    [field: SerializeField] public Pathfinder Pathfinder { get; private set; } = null;
+    [field: SerializeField] public CameraController CameraController { get; private set; } = null;
+    [field: SerializeField] public UIController UIController { get; private set; } = null;
+    [field: SerializeField] public Transform CustomerStart { get; private set; } = null;
+    [field: SerializeField] public Transform CustomerEndTile { get; private set; } = null;
+    [field: SerializeField] public Transform CustomerEnd { get; private set; } = null;
+    [field: SerializeField] public Person CustomerPrefab { get; private set; } = null;
     #endregion
 
     #region States
@@ -40,18 +59,30 @@ public class GameManager : MonoBehaviour
     #endregion
 
     #region Properties
-    public int Money { get; private set; } = 100;
+    public int Money { get; private set; } = 1000;
     public float WorldTimeScale { get; private set; } = 1f;
+    public List<PlaceableObject> PlacedObjects { get; private set; } = new List<PlaceableObject>();
     public Tile SelectedTile { get; private set; } = null;
     public Placeable SelectedObject { get; private set; } = null;
     public GameObject PreviewObject { get; private set; } = null;
     public List<Tile> LastSelectedTiles { get; private set; } = new List<Tile>();
     #endregion
 
+    #region Data
+    [field: SerializeField] public float CustomerSpawnChance { get; private set; } = 0.1f;
+    [field: SerializeField] private float CustomerSpawnTime { get; set; } = 1f;
+    [field: SerializeField] private float MoneyMultiplier { get; set; } = 1f;
+    #endregion
+
+    #region Private
+    private float customerSpawnTimer = 0f;
+    private List<Person> customers = new List<Person>();
+    #endregion
+
     private void Start()
     {
-        grid.DeleteGrid();
-        grid.CreateGrid();
+        Grid.DeleteGrid();
+        Grid.CreateGrid();
     }
 
     private void Update()
@@ -65,18 +96,36 @@ public class GameManager : MonoBehaviour
                 BuildingState();
                 break;
             case GameState.Paused:
-                break;
+                return;
             default:
                 break;
         }
 
-        if (!uiController.IsBuildingUIActive)
-            cameraController.MoveCamera(MousePosition);
+        if (!UIController.IsBuildingUIActive)
+            CameraController.MoveCamera(MousePosition);
+
+        SpawnCustomer();
     }
 
     public void PlayingState()
     {
 
+    }
+
+    public void SpawnCustomer()
+    {
+        if (PlacedObjects.Count == 0) return;
+
+        customerSpawnTimer += Time.deltaTime;
+        if (customerSpawnTimer >= CustomerSpawnTime)
+        {
+            customerSpawnTimer = 0f;
+            if (Random.Range(0f, 1f) <= CustomerSpawnChance)
+            {
+                Person customer = Instantiate(CustomerPrefab, CustomerStart.position, Quaternion.identity);
+                customers.Add(customer);
+            }
+        }
     }
 
     public void BuildingState()
@@ -86,13 +135,13 @@ public class GameManager : MonoBehaviour
             case BuildState.New:
                 if (PreviewObject != null)
                 {
-                    Tile currentTile = grid.GetGridElement(MouseWorldPosition);
+                    Tile currentTile = Grid.GetGridElement(MouseWorldPosition);
                     if (currentTile)
                         PreviewObject.transform.position = currentTile.transform.position;
 
                     LastSelectedTiles.ForEach(t => t?.Deselect());
 
-                    List<Tile> tiles = grid.GetGridElements(MouseWorldPosition, SelectedObject.Size);
+                    List<Tile> tiles = Grid.GetGridElements(MouseWorldPosition, SelectedObject.Size);
                     tiles.ForEach(t => t?.Select());
 
                     LastSelectedTiles = tiles;
@@ -147,7 +196,7 @@ public class GameManager : MonoBehaviour
         if (SelectedTile)
             SelectedTile.Deselect();
 
-        SelectedTile = grid.GetGridElement(MouseWorldPosition);
+        SelectedTile = Grid.GetGridElement(MouseWorldPosition);
 
         if (SelectedTile)
             SelectedTile.Select();
@@ -160,19 +209,26 @@ public class GameManager : MonoBehaviour
             case BuildState.New:
                 if (SelectedObject != null)
                 {
-                    List<Tile> tiles = grid.GetGridElements(MouseWorldPosition, SelectedObject.Size);
+                    List<Tile> tiles = Grid.GetGridElements(MouseWorldPosition, SelectedObject.Size);
                     if (tiles.TrueForAll(t => t != null && t.currentObject == null))
                     {
                         Money -= SelectedObject.Cost;
 
-                        Tile tile = grid.GetGridElement(MouseWorldPosition);
+                        Tile tile = Grid.GetGridElement(MouseWorldPosition);
                         GameObject newObject = Instantiate(SelectedObject.Prefab, tile.transform.position, Quaternion.identity);
 
-                        tiles.ForEach(t => t.currentObject = newObject);
+                        PlaceableObject placeableObject = newObject.GetComponent<PlaceableObject>();
+                        if (placeableObject)
+                            PlacedObjects.Add(placeableObject);
+
+                        tiles.ForEach(t => { t.currentObject = newObject; Debug.Log(t.currentObject); });
+                        Grid.UpdateGridArray();
 
                         Destroy(PreviewObject);
+
                         PreviewObject = null;
                         SelectedObject = null;
+
                         gameState = GameState.Playing;
                         buildState = BuildState.New;
 

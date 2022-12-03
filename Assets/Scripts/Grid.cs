@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System;
+using Unity.Collections;
 
 namespace Gridsystem
 {
@@ -16,13 +17,14 @@ namespace Gridsystem
         [field: SerializeField] private Tile gridObject = null;
 
         [field: SerializeField] public Tile[,] GridElements { get; private set; } = null;
-        [field: SerializeField] public List<TileData> GridArray { get; private set; } = null;
+        // [field: SerializeField] public List<PathNode> GridArray { get; set; } = null;
+        [field: SerializeField] public PathNode[] GridArray { get; set; } = null;
 
 
         public void CreateGrid()
         {
             GridElements = new Tile[Width, Height];
-            GridArray = new List<TileData>();
+            GridArray = new PathNode[Width * Height];
 
             float xPosition = OriginPosition.x;
             float yPosition = OriginPosition.y;
@@ -38,17 +40,30 @@ namespace Gridsystem
                     newTile.y = y;
                     GridElements[x, y] = newTile;
 
-                    TileData tileData = new TileData();
+                    PathNode tileData = new PathNode();
                     tileData.x = x;
                     tileData.y = y;
                     tileData.index = x + y * Width;
                     tileData.isWalkable = true;
-                    GridArray.Add(tileData);
+                    GridArray[tileData.index] = tileData;
 
                     yPosition += CellSize;
                 }
                 yPosition = OriginPosition.y;
                 xPosition += CellSize;
+            }
+        }
+
+        public void UpdateGridArray()
+        {
+            for (int x = 0; x < Width; x++)
+            {
+                for (int y = 0; y < Height; y++)
+                {
+                    PathNode tileData = GridArray[x + y * Width];
+                    tileData.isWalkable = GridElements[x, y].currentObject == null;
+                    GridArray[x + y * Width] = tileData;
+                }
             }
         }
 
@@ -68,6 +83,9 @@ namespace Gridsystem
 
         public void GetGridElement(int x, int y, out Tile tile)
         {
+            x = Mathf.Clamp(x, 0, Width - 1);
+            y = Mathf.Clamp(y, 0, Height - 1);
+
             if (x >= 0 && y >= 0 && x < Width && y < Height)
             {
                 tile = GridElements[x, y];

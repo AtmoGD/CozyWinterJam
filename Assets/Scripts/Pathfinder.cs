@@ -20,12 +20,40 @@ namespace Gridsystem
         public List<Vector2Int> FindPath(Grid grid, Vector2Int _startPos, Vector2Int _targetPos)
         {
             NativeList<int2> pathList = new NativeList<int2>(grid.Width * grid.Height, Allocator.TempJob);
-            NativeArray<TileData> gridElems = new NativeArray<TileData>(grid.Width * grid.Height, Allocator.TempJob);
+            NativeArray<PathNode> gridElems = new NativeArray<PathNode>(grid.Width * grid.Height, Allocator.TempJob);
 
-            foreach (TileData tile in grid.GridArray)
+            // for (int x = 0; x < grid.Width; x++)
+            // {
+            //     for (int y = 0; y < grid.Height; y++)
+            //     {
+            //         PathNode pathNode = new PathNode();
+            //         pathNode.x = x;
+            //         pathNode.y = y;
+            //         pathNode.index = x + y * grid.Width;
+            //         pathNode.isWalkable = grid.GridElements[x, y].currentObject == null;
+            //         pathNode.gCost = int.MaxValue;
+            //         pathNode.cameFromNodeIndex = -1;
+            //         gridElems[pathNode.index] = pathNode;
+            //     }
+            // }
+            // foreach (Tile tile in grid.GridElements)
+            // {
+            //     PathNode pathNode = new PathNode();
+            //     pathNode.x = tile.x;
+            //     pathNode.y = tile.y;
+            //     pathNode.index = tile.x + tile.y * grid.Width;
+            //     pathNode.gCost = int.MaxValue;
+            //     pathNode.hCost = 0;
+            //     pathNode.fCost = 0;
+            //     pathNode.isWalkable = tile.currentObject == null;
+            //     pathNode.cameFromNodeIndex = -1;
+            //     gridElems[pathNode.index] = pathNode;
+            // }
+            foreach (PathNode tile in grid.GridArray)
             {
-                gridElems[tile.index] = tile;
+                gridElems[tile.index] = tile.GetCopy();
             }
+
 
             FindPathJob findPathJob = new FindPathJob
             {
@@ -47,6 +75,8 @@ namespace Gridsystem
 
             findPathJob.path.Dispose();
             findPathJob.gridElements.Dispose();
+            // pathList.Dispose();
+            // gridElems.Dispose();
 
             return path;
         }
@@ -56,7 +86,7 @@ namespace Gridsystem
         [BurstCompile]
         public struct FindPathJob : IJob
         {
-            public NativeArray<TileData> gridElements;
+            public NativeArray<PathNode> gridElements;
             public int2 startPos;
             public int2 targetPos;
             public int2 gridSize;
@@ -70,11 +100,11 @@ namespace Gridsystem
 
             private void FindPath(int2 _startPosition, int2 _endPosition)
             {
-                NativeArray<TileData> pathNodeArray = new NativeArray<TileData>(gridSize.x * gridSize.y, Allocator.Temp);
+                NativeArray<PathNode> pathNodeArray = new NativeArray<PathNode>(gridSize.x * gridSize.y, Allocator.Temp);
 
-                foreach (TileData gridElement in gridElements)
+                foreach (PathNode gridElement in gridElements)
                 {
-                    TileData pathNode = new TileData();
+                    PathNode pathNode = gridElement.GetCopy();
                     pathNode.x = gridElement.x;
                     pathNode.y = gridElement.y;
                     pathNode.index = CalculateIndex(pathNode.x, pathNode.y, gridSize.x);
@@ -92,13 +122,13 @@ namespace Gridsystem
                 neighbourOffsets[2] = new int2(0, +1);  // Up
                 neighbourOffsets[3] = new int2(0, -1);  // Down
                 neighbourOffsets[4] = new int2(-1, -1); // Down Left
-                neighbourOffsets[5] = new int2(+1, -1); // Down Right
                 neighbourOffsets[6] = new int2(-1, +1); // Up Left
+                neighbourOffsets[5] = new int2(+1, -1); // Down Right
                 neighbourOffsets[7] = new int2(+1, +1); // Up Right
 
                 int endNodeIndex = CalculateIndex(_endPosition.x, _endPosition.y, gridSize.x);
 
-                TileData startNode = pathNodeArray[CalculateIndex(_startPosition.x, _startPosition.y, gridSize.x)];
+                PathNode startNode = pathNodeArray[CalculateIndex(_startPosition.x, _startPosition.y, gridSize.x)];
                 startNode.gCost = 0;
                 startNode.CalculateFCost();
                 pathNodeArray[startNode.index] = startNode;
@@ -111,7 +141,7 @@ namespace Gridsystem
                 while (openList.Length > 0)
                 {
                     int currentNodeIndex = GetLowestCostFNodeIndex(openList, pathNodeArray);
-                    TileData currentNode = pathNodeArray[currentNodeIndex];
+                    PathNode currentNode = pathNodeArray[currentNodeIndex];
 
                     if (currentNode.index == endNodeIndex)
                     {
@@ -146,7 +176,7 @@ namespace Gridsystem
                             continue;
                         }
 
-                        TileData neighbourNode = pathNodeArray[neighbourNodeIndex];
+                        PathNode neighbourNode = pathNodeArray[neighbourNodeIndex];
                         if (!neighbourNode.isWalkable)
                         {
                             continue;
@@ -170,7 +200,7 @@ namespace Gridsystem
                     }
                 }
 
-                TileData endNode = pathNodeArray[endNodeIndex];
+                PathNode endNode = pathNodeArray[endNodeIndex];
                 if (endNode.cameFromNodeIndex == -1)
                 {
                     Debug.Log("No Path Found");
@@ -180,12 +210,13 @@ namespace Gridsystem
                     path = CalculatePath(pathNodeArray, endNode);
                 }
 
+                pathNodeArray.Dispose();
                 neighbourOffsets.Dispose();
                 openList.Dispose();
                 closedList.Dispose();
             }
 
-            public NativeList<int2> CalculatePath(NativeArray<TileData> _pathNodeArray, TileData _endNode)
+            public NativeList<int2> CalculatePath(NativeArray<PathNode> _pathNodeArray, PathNode _endNode)
             {
                 if (_endNode.cameFromNodeIndex == -1)
                 {
@@ -196,10 +227,10 @@ namespace Gridsystem
                 {
                     path.Add(new int2(_endNode.x, _endNode.y));
 
-                    TileData currentNode = _endNode;
+                    PathNode currentNode = _endNode;
                     while (currentNode.cameFromNodeIndex != -1)
                     {
-                        TileData cameFromNode = _pathNodeArray[currentNode.cameFromNodeIndex];
+                        PathNode cameFromNode = _pathNodeArray[currentNode.cameFromNodeIndex];
                         path.Add(new int2(cameFromNode.x, cameFromNode.y));
                         currentNode = cameFromNode;
                     }
@@ -222,15 +253,15 @@ namespace Gridsystem
                 int xDistance = math.abs(_a.x - _b.x);
                 int yDistance = math.abs(_a.y - _b.y);
                 int remaining = math.abs(xDistance - yDistance);
-                return MOVE_STRAIGHT_COST * math.min(xDistance, yDistance) + MOVE_DIAGONAL_COST * remaining;
+                return MOVE_DIAGONAL_COST * math.min(xDistance, yDistance) + MOVE_STRAIGHT_COST * remaining;
             }
 
-            public int GetLowestCostFNodeIndex(NativeList<int> _openList, NativeArray<TileData> _pathNodeArray)
+            public int GetLowestCostFNodeIndex(NativeList<int> _openList, NativeArray<PathNode> _pathNodeArray)
             {
-                TileData lowestCostPathNode = _pathNodeArray[_openList[0]];
+                PathNode lowestCostPathNode = _pathNodeArray[_openList[0]];
                 for (int i = 0; i < _openList.Length; i++)
                 {
-                    TileData testPathNode = _pathNodeArray[_openList[i]];
+                    PathNode testPathNode = _pathNodeArray[_openList[i]];
                     if (testPathNode.fCost < lowestCostPathNode.fCost)
                     {
                         lowestCostPathNode = testPathNode;
