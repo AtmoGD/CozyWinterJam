@@ -50,6 +50,9 @@ TagManager:
   - name: World
     uniqueID: 206142495
     locked: 0
+  - name: VFX
+    uniqueID: 681226869
+    locked: 0
   - name: UI
     uniqueID: 597303337
     locked: 0

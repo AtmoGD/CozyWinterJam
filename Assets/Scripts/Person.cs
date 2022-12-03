@@ -5,6 +5,7 @@ using UnityEngine;
 public class Person : MonoBehaviour
 {
     [SerializeField] private MoneyVizualizer moneyPrefab = null;
+    [SerializeField] private AudioSource moneySound = null;
     public GameManager Manager { get; private set; } = null;
     public Animator Animator { get; private set; } = null;
     public LayerOrderer LayerOrderer { get; private set; } = null;
@@ -65,6 +66,8 @@ public class Person : MonoBehaviour
                 int moneyMin = shopsToVisit[0].Data.MoneyRange.x;
                 int moneyMax = shopsToVisit[0].Data.MoneyRange.y;
                 int money = Random.Range(moneyMin, moneyMax);
+
+                moneySound.Play();
 
                 MoneyVizualizer moneyVizualizer = Instantiate(moneyPrefab, transform.position, Quaternion.identity);
                 moneyVizualizer.SetMoney(money);

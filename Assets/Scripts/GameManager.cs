@@ -4,6 +4,15 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using Gridsystem;
 using Grid = Gridsystem.Grid;
+using System;
+
+[Serializable]
+public class StartObjectData
+{
+    public Placeable placeable;
+    public int x;
+    public int y;
+}
 
 public enum GameState
 {
@@ -46,9 +55,9 @@ public class GameManager : MonoBehaviour
     [field: SerializeField] public Transform CustomerEndTile { get; private set; } = null;
     [field: SerializeField] public Transform CustomerEnd { get; private set; } = null;
     [field: SerializeField] public Person CustomerPrefab { get; private set; } = null;
-
-    [field: SerializeField] public Placeable StartPlaceable { get; private set; } = null;
-    [field: SerializeField] public Vector2Int StartPlaceablePosition { get; private set; } = Vector2Int.zero;
+    [field: SerializeField] public List<StartObjectData> StartObjects { get; private set; } = new List<StartObjectData>();
+    // [field: SerializeField] public Placeable StartPlaceable { get; private set; } = null;
+    // [field: SerializeField] public Vector2Int StartPlaceablePosition { get; private set; } = Vector2Int.zero;
     #endregion
 
     #region States
@@ -91,49 +100,53 @@ public class GameManager : MonoBehaviour
         Grid.DeleteGrid();
         Grid.CreateGrid();
 
-        if (StartPlaceable != null)
-        {
-            PlaceStartObject();
-        }
+        // if (StartPlaceable != null)
+        // {
+        PlaceStartObject();
+        // }
     }
 
     private void PlaceStartObject()
     {
-        Grid.GetGridElement(StartPlaceablePosition.x, StartPlaceablePosition.y, out Tile tile);
-
-        List<Tile> tiles = Grid.GetGridElements(tile.transform.position, StartPlaceable.Size, false);
-
-        if (tiles.Count == (StartPlaceable.Size.x * StartPlaceable.Size.y))
+        foreach (StartObjectData startObject in StartObjects)
         {
-            if (tiles.TrueForAll(t => t != null && t.currentObject == null))
+
+            Grid.GetGridElement(startObject.x, startObject.y, out Tile tile);
+
+            List<Tile> tiles = Grid.GetGridElements(tile.transform.position, startObject.placeable.Size, false);
+
+            if (tiles.Count == (startObject.placeable.Size.x * startObject.placeable.Size.y))
             {
-
-                GameObject newObject = Instantiate(StartPlaceable.Prefab, tile.transform.position, Quaternion.identity);
-
-                PlaceableObject placeableObject = newObject.GetComponent<PlaceableObject>();
-                if (placeableObject)
+                if (tiles.TrueForAll(t => t != null && t.currentObject == null))
                 {
-                    PlacedObjects.Add(placeableObject);
-                    placeableObject.placedOnTiles = tiles;
-                }
 
-                LayerOrderer layerOrderer = newObject.GetComponent<LayerOrderer>();
-                if (layerOrderer)
-                {
-                    layerOrderer.SetGameManager(this);
-                    layerOrderer.UpdateOrder(tile);
-                }
+                    GameObject newObject = Instantiate(startObject.placeable.Prefab, tile.transform.position, Quaternion.identity);
+
+                    PlaceableObject placeableObject = newObject.GetComponent<PlaceableObject>();
+                    if (placeableObject)
+                    {
+                        PlacedObjects.Add(placeableObject);
+                        placeableObject.placedOnTiles = tiles;
+                    }
+
+                    LayerOrderer layerOrderer = newObject.GetComponent<LayerOrderer>();
+                    if (layerOrderer)
+                    {
+                        layerOrderer.SetGameManager(this);
+                        layerOrderer.UpdateOrder(tile);
+                    }
 
 
-                tiles.ForEach(t => t.currentObject = newObject);
+                    tiles.ForEach(t => t.currentObject = newObject);
 
-                foreach (Tile t in tiles)
-                {
-                    PathNode tileData = Grid.GridArray.Find(n => n.x == t.x && n.y == t.y);
-                    Grid.GridArray.Remove(tileData);
+                    foreach (Tile t in tiles)
+                    {
+                        PathNode tileData = Grid.GridArray.Find(n => n.x == t.x && n.y == t.y);
+                        Grid.GridArray.Remove(tileData);
 
-                    tileData.SetIsWalkable(false);
-                    Grid.GridArray.Add(tileData);
+                        tileData.SetIsWalkable(false);
+                        Grid.GridArray.Add(tileData);
+                    }
                 }
             }
         }
@@ -174,7 +187,7 @@ public class GameManager : MonoBehaviour
         if (customerSpawnTimer >= CustomerSpawnTime)
         {
             customerSpawnTimer = 0f;
-            if (Random.Range(0f, 1f) <= CustomerSpawnChance)
+            if (UnityEngine.Random.Range(0f, 1f) <= CustomerSpawnChance)
             {
                 Person customer = Instantiate(CustomerPrefab, CustomerStart.position, Quaternion.identity);
                 customers.Add(customer);
