@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEditor;
 using System;
 using Unity.Collections;
 
@@ -17,14 +18,13 @@ namespace Gridsystem
         [field: SerializeField] private Tile gridObject = null;
 
         [field: SerializeField] public Tile[,] GridElements { get; private set; } = null;
-        // [field: SerializeField] public List<PathNode> GridArray { get; set; } = null;
-        [field: SerializeField] public PathNode[] GridArray { get; set; } = null;
+        [field: SerializeField] public List<PathNode> GridArray { get; set; } = null;
 
 
         public void CreateGrid()
         {
             GridElements = new Tile[Width, Height];
-            GridArray = new PathNode[Width * Height];
+            GridArray = new List<PathNode>(Width * Height);
 
             float xPosition = OriginPosition.x;
             float yPosition = OriginPosition.y;
@@ -45,7 +45,7 @@ namespace Gridsystem
                     tileData.y = y;
                     tileData.index = x + y * Width;
                     tileData.isWalkable = true;
-                    GridArray[tileData.index] = tileData;
+                    GridArray.Add(tileData);
 
                     yPosition += CellSize;
                 }

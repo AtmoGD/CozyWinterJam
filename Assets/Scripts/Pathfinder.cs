@@ -20,7 +20,7 @@ namespace Gridsystem
         public List<Vector2Int> FindPath(Grid grid, Vector2Int _startPos, Vector2Int _targetPos)
         {
             NativeList<int2> pathList = new NativeList<int2>(grid.Width * grid.Height, Allocator.TempJob);
-            NativeArray<PathNode> gridElems = new NativeArray<PathNode>(grid.Width * grid.Height, Allocator.TempJob);
+            NativeArray<PathNode> gridElems = new NativeArray<PathNode>(grid.Width * grid.Height, Allocator.Persistent);
 
             // for (int x = 0; x < grid.Width; x++)
             // {
@@ -49,6 +49,8 @@ namespace Gridsystem
             //     pathNode.cameFromNodeIndex = -1;
             //     gridElems[pathNode.index] = pathNode;
             // }
+
+
             foreach (PathNode tile in grid.GridArray)
             {
                 gridElems[tile.index] = tile.GetCopy();
@@ -59,6 +61,7 @@ namespace Gridsystem
             {
                 startPos = new int2(_startPos.x, _startPos.y),
                 targetPos = new int2(_targetPos.x, _targetPos.y),
+                // gridElements = gridElems,
                 gridElements = gridElems,
                 gridSize = new int2(grid.Width, grid.Height),
                 path = pathList

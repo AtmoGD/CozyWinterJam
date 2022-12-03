@@ -11,6 +11,8 @@ public class Person : MonoBehaviour
     private List<Vector2Int> path = new List<Vector2Int>();
     private Vector2Int currentTargetTile = Vector2Int.zero;
 
+    [SerializeField] private float speed = 3f;
+
     private void Start()
     {
         Manager = GameManager.Instance;
@@ -24,20 +26,26 @@ public class Person : MonoBehaviour
         }
         else
         {
-            if (Manager.PlacedObjects.Count > 0)
-            {
-                Gridsystem.Tile startTile = Manager.Grid.GetGridElement(transform.position);
-                int randomIndex = Random.Range(0, Manager.PlacedObjects.Count);
-                Gridsystem.Tile endTile = Manager.Grid.GetGridElement(Manager.PlacedObjects[0].transform.position);
+            GetNewPath();
+        }
+    }
 
-                Vector2Int start = new Vector2Int(startTile.x, startTile.y);
-                Vector2Int end = new Vector2Int(endTile.x, endTile.y);
+    private void GetNewPath()
+    {
+        if (Manager.PlacedObjects.Count > 0)
+        {
+            Gridsystem.Tile startTile = Manager.Grid.GetGridElement(transform.position);
+            int randomIndex = Random.Range(0, Manager.PlacedObjects.Count);
+            PlaceableObject target = Manager.PlacedObjects[randomIndex];
+            Gridsystem.Tile endTile = Manager.Grid.GetGridElement(target.CustomerPosition.position);
 
-                path = Manager.Pathfinder.FindPath(Manager.Grid, start, end);
+            Vector2Int start = new Vector2Int(startTile.x, startTile.y);
+            Vector2Int end = new Vector2Int(endTile.x, endTile.y);
 
-                if (path.Count > 0)
-                    currentTargetTile = path[path.Count - 1];
-            }
+            path = Manager.Pathfinder.FindPath(Manager.Grid, start, end);
+
+            if (path.Count > 0)
+                currentTargetTile = path[path.Count - 1];
         }
     }
 
@@ -48,7 +56,7 @@ public class Person : MonoBehaviour
         if (transform.position != targetTile.transform.position)
         {
             Vector3 targetPosition = targetTile.transform.position;
-            transform.position = Vector3.MoveTowards(transform.position, targetPosition, 5f * Time.deltaTime);
+            transform.position = Vector3.MoveTowards(transform.position, targetPosition, speed * Time.deltaTime);
         }
         else
         {

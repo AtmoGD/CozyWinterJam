@@ -61,7 +61,7 @@ namespace Gridsystem
             fCost = gCost + hCost;
         }
 
-        public void ChangeIsWalkable(bool value)
+        public void SetIsWalkable(bool value)
         {
             isWalkable = value;
         }

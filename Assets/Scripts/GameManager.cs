@@ -221,8 +221,17 @@ public class GameManager : MonoBehaviour
                         if (placeableObject)
                             PlacedObjects.Add(placeableObject);
 
-                        tiles.ForEach(t => { t.currentObject = newObject; Debug.Log(t.currentObject); });
-                        Grid.UpdateGridArray();
+
+                        tiles.ForEach(t => t.currentObject = newObject);
+
+                        foreach (Tile t in tiles)
+                        {
+                            PathNode tileData = Grid.GridArray.Find(n => n.x == t.x && n.y == t.y);
+                            Grid.GridArray.Remove(tileData);
+
+                            tileData.SetIsWalkable(false);
+                            Grid.GridArray.Add(tileData);
+                        }
 
                         Destroy(PreviewObject);
 
