@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b0382c82844c7f4418ebf13b83fffa10, type: 3}
+  m_Name: HolidayPyramid
+  m_EditorClassIdentifier: 
+  <Name>k__BackingField: Holiday Pyramid
+  <ShopSprite>k__BackingField: {fileID: 892289481, guid: 949520d88d7da954ba894a24f0c2ba91, type: 3}
+  <Prefab>k__BackingField: {fileID: 8739555751527065205, guid: 2ae669f95907b6641a9f5b3f627c445d, type: 3}
+  <PreviewPrefab>k__BackingField: {fileID: 3462083424253538672, guid: b12296a4bf3e36043bcacde2f06fdd63, type: 3}
+  <Cost>k__BackingField: 10
+  <Size>k__BackingField: {x: 6, y: 3}
+  <Type>k__BackingField: 1
+  <WaitTime>k__BackingField: 1
+  <MoneyRange>k__BackingField: {x: 4, y: 10}

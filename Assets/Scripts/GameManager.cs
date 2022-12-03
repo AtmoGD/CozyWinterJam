@@ -46,6 +46,9 @@ public class GameManager : MonoBehaviour
     [field: SerializeField] public Transform CustomerEndTile { get; private set; } = null;
     [field: SerializeField] public Transform CustomerEnd { get; private set; } = null;
     [field: SerializeField] public Person CustomerPrefab { get; private set; } = null;
+
+    [field: SerializeField] public Placeable StartPlaceable { get; private set; } = null;
+    [field: SerializeField] public Vector2Int StartPlaceablePosition { get; private set; } = Vector2Int.zero;
     #endregion
 
     #region States
@@ -87,6 +90,53 @@ public class GameManager : MonoBehaviour
     {
         Grid.DeleteGrid();
         Grid.CreateGrid();
+
+        if (StartPlaceable != null)
+        {
+            PlaceStartObject();
+        }
+    }
+
+    private void PlaceStartObject()
+    {
+        Grid.GetGridElement(StartPlaceablePosition.x, StartPlaceablePosition.y, out Tile tile);
+
+        List<Tile> tiles = Grid.GetGridElements(tile.transform.position, StartPlaceable.Size, false);
+
+        if (tiles.Count == (StartPlaceable.Size.x * StartPlaceable.Size.y))
+        {
+            if (tiles.TrueForAll(t => t != null && t.currentObject == null))
+            {
+
+                GameObject newObject = Instantiate(StartPlaceable.Prefab, tile.transform.position, Quaternion.identity);
+
+                PlaceableObject placeableObject = newObject.GetComponent<PlaceableObject>();
+                if (placeableObject)
+                {
+                    PlacedObjects.Add(placeableObject);
+                    placeableObject.placedOnTiles = tiles;
+                }
+
+                LayerOrderer layerOrderer = newObject.GetComponent<LayerOrderer>();
+                if (layerOrderer)
+                {
+                    layerOrderer.SetGameManager(this);
+                    layerOrderer.UpdateOrder(tile);
+                }
+
+
+                tiles.ForEach(t => t.currentObject = newObject);
+
+                foreach (Tile t in tiles)
+                {
+                    PathNode tileData = Grid.GridArray.Find(n => n.x == t.x && n.y == t.y);
+                    Grid.GridArray.Remove(tileData);
+
+                    tileData.SetIsWalkable(false);
+                    Grid.GridArray.Add(tileData);
+                }
+            }
+        }
     }
 
     private void Update()

@@ -1,0 +1,63 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1001 &5279038100987205381
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 5919572836096741071, guid: 2ae669f95907b6641a9f5b3f627c445d, type: 3}
+      propertyPath: m_Color.a
+      value: 0.3529412
+      objectReference: {fileID: 0}
+    - target: {fileID: 6806664232816340912, guid: 2ae669f95907b6641a9f5b3f627c445d, type: 3}
+      propertyPath: m_RootOrder
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6806664232816340912, guid: 2ae669f95907b6641a9f5b3f627c445d, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 7.3
+      objectReference: {fileID: 0}
+    - target: {fileID: 6806664232816340912, guid: 2ae669f95907b6641a9f5b3f627c445d, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 3.21
+      objectReference: {fileID: 0}
+    - target: {fileID: 6806664232816340912, guid: 2ae669f95907b6641a9f5b3f627c445d, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6806664232816340912, guid: 2ae669f95907b6641a9f5b3f627c445d, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6806664232816340912, guid: 2ae669f95907b6641a9f5b3f627c445d, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6806664232816340912, guid: 2ae669f95907b6641a9f5b3f627c445d, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6806664232816340912, guid: 2ae669f95907b6641a9f5b3f627c445d, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6806664232816340912, guid: 2ae669f95907b6641a9f5b3f627c445d, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6806664232816340912, guid: 2ae669f95907b6641a9f5b3f627c445d, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6806664232816340912, guid: 2ae669f95907b6641a9f5b3f627c445d, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8739555751527065205, guid: 2ae669f95907b6641a9f5b3f627c445d, type: 3}
+      propertyPath: m_Name
+      value: HolidayPyramid
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 2ae669f95907b6641a9f5b3f627c445d, type: 3}
