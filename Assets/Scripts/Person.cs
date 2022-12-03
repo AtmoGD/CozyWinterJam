@@ -34,6 +34,19 @@ public class Person : MonoBehaviour
             LayerOrderer.SetGameManager(Manager);
         }
 
+        ChooseRandomShopList();
+
+        GetNewPath();
+
+        if (path.Count <= 0)
+        {
+            print("No path found on stat shopping list. Gonna destroy myself");
+            Destroy(gameObject);
+        }
+    }
+
+    private void ChooseRandomShopList()
+    {
         if (Manager)
         {
             foreach (PlaceableObject placeableObject in Manager.PlacedBuildings)
@@ -53,8 +66,6 @@ public class Person : MonoBehaviour
                 shopsToVisit[randomIndex] = temp;
             }
         }
-
-        GetNewPath();
     }
 
     private void Update()
@@ -111,6 +122,8 @@ public class Person : MonoBehaviour
 
                     if (path.Count > 0)
                         currentTargetTile = path[path.Count - 1];
+                    else
+                        print("ERROR01: No path found");
                 }
 
                 shopsToVisit.Remove(target);
@@ -127,6 +140,8 @@ public class Person : MonoBehaviour
 
                 if (path.Count > 0)
                     currentTargetTile = path[path.Count - 1];
+                else
+                    print("ERROR02: No path found");
             }
         }
     }
@@ -187,6 +202,8 @@ public class Person : MonoBehaviour
 
                             if (path.Count > 0)
                                 currentTargetTile = path[path.Count - 1];
+                            else
+                                print("ERROR03: No path found");
 
                             goToEndTile = true;
                         }

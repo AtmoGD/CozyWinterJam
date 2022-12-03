@@ -223,7 +223,7 @@ public class GameManager : MonoBehaviour
 
                     LastSelectedTiles.ForEach(t => t?.Deselect());
 
-                    List<Tile> tiles = Grid.GetGridElements(MouseWorldPosition, SelectedObject.Size);
+                    List<Tile> tiles = Grid.GetGridElements(MouseWorldPosition, EditObject.Data.Size);
                     tiles.ForEach(t => t?.Select());
 
                     LastSelectedTiles = tiles;
@@ -247,7 +247,34 @@ public class GameManager : MonoBehaviour
 
     public void ChangeToEditMode()
     {
+        if (gameState == GameState.Building && buildState == BuildState.Edit)
+        {
+            gameState = GameState.Playing;
+            buildState = BuildState.New;
 
+            for (int x = 0; x < Grid.Width; x++)
+            {
+                for (int y = 0; y < Grid.Height; y++)
+                {
+                    Grid.GetGridElement(x, y, out Tile tile);
+                    tile.Deselect();
+                }
+            }
+        }
+        else
+        {
+            gameState = GameState.Building;
+            buildState = BuildState.Edit;
+
+            for (int x = 0; x < Grid.Width; x++)
+            {
+                for (int y = 0; y < Grid.Height; y++)
+                {
+                    Grid.GetGridElement(x, y, out Tile tile);
+                    tile.Select();
+                }
+            }
+        }
     }
 
     public void ChangeToDeleteMode()
@@ -353,7 +380,7 @@ public class GameManager : MonoBehaviour
                 if (EditObject)
                 {
                     List<Tile> tiles = Grid.GetGridElements(MouseWorldPosition, EditObject.Data.Size, false);
-                    if (tiles.Count == (SelectedObject.Size.x * SelectedObject.Size.y))
+                    if (tiles.Count == (EditObject.Data.Size.x * EditObject.Data.Size.y))
                     {
                         if (tiles.TrueForAll(t => t != null && t.currentObject == null))
                         {
@@ -374,7 +401,24 @@ public class GameManager : MonoBehaviour
                                 layerOrderer.UpdateOrder(tile);
                             }
 
+                            tiles.ForEach(t =>
+                            {
+                                t?.Deselect();
+                                t.currentObject = EditObject.gameObject;
+                            });
+
+                            foreach (Tile t in tiles)
+                            {
+                                PathNode tileData = Grid.GridArray.Find(n => n.x == t.x && n.y == t.y);
+                                Grid.GridArray.Remove(tileData);
+
+                                tileData.SetIsWalkable(false);
+                                Grid.GridArray.Add(tileData);
+                            }
+
                             EditObject = null;
+                            gameState = GameState.Playing;
+                            buildState = BuildState.New;
                         }
                     }
                 }
@@ -391,6 +435,17 @@ public class GameManager : MonoBehaviour
 
                             tileData.SetIsWalkable(true);
                             Grid.GridArray.Add(tileData);
+
+                            t.currentObject = null;
+                        }
+
+                        for (int x = 0; x < Grid.Width; x++)
+                        {
+                            for (int y = 0; y < Grid.Height; y++)
+                            {
+                                Grid.GetGridElement(x, y, out Tile currentTile);
+                                currentTile.Deselect();
+                            }
                         }
                     }
                 }
