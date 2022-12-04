@@ -79,6 +79,7 @@ public class Person : MonoBehaviour
                 int moneyMin = shopsToVisit[0].Data.MoneyRange.x;
                 int moneyMax = shopsToVisit[0].Data.MoneyRange.y;
                 int money = Random.Range(moneyMin, moneyMax);
+                money = Mathf.RoundToInt(Manager.MoneyAddition + money);
 
                 moneySound.Play();
 

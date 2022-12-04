@@ -57,6 +57,7 @@ public class GameManager : MonoBehaviour
     [field: SerializeField] public Transform CustomerEnd { get; private set; } = null;
     [field: SerializeField] public Person CustomerPrefab { get; private set; } = null;
     [field: SerializeField] public List<StartObjectData> StartObjects { get; private set; } = new List<StartObjectData>();
+    [field: SerializeField] public AudioSource PlaceBuildingSound { get; private set; } = null;
     #endregion
 
     #region States
@@ -85,9 +86,26 @@ public class GameManager : MonoBehaviour
     #endregion
 
     #region Data
-    [field: SerializeField] public float CustomerSpawnChance { get; private set; } = 0.1f;
-    [field: SerializeField] private float CustomerSpawnTime { get; set; } = 1f;
-    [field: SerializeField] private float MoneyMultiplier { get; set; } = 1f;
+    [SerializeField] private float customerSpawnChance = 0.2f;
+    [SerializeField] private float customerSpawnChanceBuildingAddition = 0.02f;
+    public float CustomerSpawnChance
+    {
+        get
+        {
+            return customerSpawnChance + (PlacedBuildings.Count * customerSpawnChanceBuildingAddition);
+        }
+    }
+
+    [field: SerializeField]
+    private float CustomerSpawnTime { get; set; } = 1f;
+    [SerializeField] private float moneyDecorationAddition = 1f;
+    public float MoneyAddition
+    {
+        get
+        {
+            return PlacedDecorations.Count * moneyDecorationAddition;
+        }
+    }
     #endregion
 
     #region Private
@@ -450,6 +468,8 @@ public class GameManager : MonoBehaviour
 
                             LastSelectedTiles.ForEach(t => t?.Deselect());
                             LastSelectedTiles.Clear();
+
+                            PlaceBuildingSound?.Play();
                         }
                     }
                 }
@@ -497,6 +517,8 @@ public class GameManager : MonoBehaviour
                             EditObject = null;
                             gameState = GameState.Playing;
                             buildState = BuildState.New;
+
+                            PlaceBuildingSound?.Play();
                         }
                     }
                 }
@@ -525,16 +547,22 @@ public class GameManager : MonoBehaviour
                                 currentTile.Deselect();
                             }
                         }
+
+                        PlaceBuildingSound?.Play();
                     }
                 }
                 break;
             case BuildState.Delete:
+                if (ConfirmDeletionPanel.activeSelf == true) return;
+
                 Tile deleteTile = Grid.GetGridElement(MouseWorldPosition);
                 if (deleteTile.currentObject != null)
                 {
                     DeleteObject = deleteTile.currentObject.GetComponent<PlaceableObject>();
                     ConfirmDeletionPanel.SetActive(true);
                 }
+
+                PlaceBuildingSound?.Play();
                 break;
         }
     }
