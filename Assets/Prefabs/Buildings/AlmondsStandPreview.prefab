@@ -7,9 +7,13 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 410565288293119504, guid: ebd623a20a43cfe45a54cbcdb8d36f93, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3642065956656733723, guid: ebd623a20a43cfe45a54cbcdb8d36f93, type: 3}
       propertyPath: m_Name
-      value: AlmondsStand
+      value: AlmondsStandPreview
       objectReference: {fileID: 0}
     - target: {fileID: 6456512869110006323, guid: ebd623a20a43cfe45a54cbcdb8d36f93, type: 3}
       propertyPath: m_RootOrder

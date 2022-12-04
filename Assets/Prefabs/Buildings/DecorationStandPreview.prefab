@@ -55,13 +55,17 @@ PrefabInstance:
       propertyPath: m_Color.a
       value: 0.3529412
       objectReference: {fileID: 0}
+    - target: {fileID: 2968144695492730660, guid: f8dfed73ef7b3a04a884a0c299306e83, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4306703544372403266, guid: f8dfed73ef7b3a04a884a0c299306e83, type: 3}
       propertyPath: m_Color.a
       value: 0.3529412
       objectReference: {fileID: 0}
     - target: {fileID: 6981059570655529209, guid: f8dfed73ef7b3a04a884a0c299306e83, type: 3}
       propertyPath: m_Name
-      value: DecorationStand
+      value: DecorationStandPreview
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f8dfed73ef7b3a04a884a0c299306e83, type: 3}

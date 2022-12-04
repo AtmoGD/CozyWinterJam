@@ -59,9 +59,13 @@ PrefabInstance:
       propertyPath: m_Color.a
       value: 0.3529412
       objectReference: {fileID: 0}
+    - target: {fileID: 6480825018691019318, guid: ff1d486af401f654cbbd52024ff109f9, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8356083122139263970, guid: ff1d486af401f654cbbd52024ff109f9, type: 3}
       propertyPath: m_Name
-      value: PretzelStand
+      value: PretzelStandPreview
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ff1d486af401f654cbbd52024ff109f9, type: 3}

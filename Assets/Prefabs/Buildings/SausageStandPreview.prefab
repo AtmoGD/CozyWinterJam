@@ -11,6 +11,10 @@ PrefabInstance:
       propertyPath: m_Color.a
       value: 0.3529412
       objectReference: {fileID: 0}
+    - target: {fileID: 1493009469855796397, guid: d78a778ac32ff3b4bb90de8100de826d, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2087400115516814468, guid: d78a778ac32ff3b4bb90de8100de826d, type: 3}
       propertyPath: m_Color.a
       value: 0.3529412
@@ -61,7 +65,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6613827051153339679, guid: d78a778ac32ff3b4bb90de8100de826d, type: 3}
       propertyPath: m_Name
-      value: SausageStand
+      value: SausageStandPreview
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d78a778ac32ff3b4bb90de8100de826d, type: 3}

@@ -51,6 +51,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 932420864950238897, guid: 2c6eb4133e32b6f4b88467760bb251a8, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3320673756517541836, guid: 2c6eb4133e32b6f4b88467760bb251a8, type: 3}
       propertyPath: m_Color.a
       value: 0.3529412
@@ -61,7 +65,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7578292365347038807, guid: 2c6eb4133e32b6f4b88467760bb251a8, type: 3}
       propertyPath: m_Name
-      value: MulledWineStand
+      value: MulledWineStandPreview
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2c6eb4133e32b6f4b88467760bb251a8, type: 3}

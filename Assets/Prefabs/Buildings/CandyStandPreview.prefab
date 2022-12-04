@@ -15,6 +15,10 @@ PrefabInstance:
       propertyPath: m_Color.a
       value: 0.3529412
       objectReference: {fileID: 0}
+    - target: {fileID: 1727653671103724544, guid: 04e8f8906761d2049ad9198a885e479f, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4060131886189259377, guid: 04e8f8906761d2049ad9198a885e479f, type: 3}
       propertyPath: m_RootOrder
       value: 0
@@ -61,7 +65,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6001451122032064089, guid: 04e8f8906761d2049ad9198a885e479f, type: 3}
       propertyPath: m_Name
-      value: CandyStand
+      value: CandyStandPreview
+      objectReference: {fileID: 0}
+    - target: {fileID: 6939608825416841264, guid: 04e8f8906761d2049ad9198a885e479f, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 04e8f8906761d2049ad9198a885e479f, type: 3}

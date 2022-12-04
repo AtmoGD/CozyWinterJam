@@ -7,6 +7,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 811433299657191970, guid: 17f22cdaac5a1bd49af80881638b02fe, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 976557924231510857, guid: 17f22cdaac5a1bd49af80881638b02fe, type: 3}
       propertyPath: m_Color.a
       value: 0.3529412
@@ -59,9 +63,13 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6214341081213173085, guid: 17f22cdaac5a1bd49af80881638b02fe, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6244424490710822898, guid: 17f22cdaac5a1bd49af80881638b02fe, type: 3}
       propertyPath: m_Name
-      value: GingerbreadStand
+      value: GingerbreadStandPreview
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 17f22cdaac5a1bd49af80881638b02fe, type: 3}
