@@ -8,6 +8,7 @@ public class CameraController : MonoBehaviour
     [SerializeField] private float cameraMaxSpeed = 10f;
     [SerializeField] private float cameraAcceleration = 10f;
     [SerializeField] private float borderThickness = 10f;
+    [SerializeField] private bool hasDeadZone = false;
     [SerializeField] private float borderDeadZone = 2f;
     [SerializeField] private Vector2 cameraBoundsMin = new Vector2(0f, 0f);
     [SerializeField] private Vector2 cameraBoundsMax = new Vector2(100f, 100f);
@@ -57,16 +58,16 @@ public class CameraController : MonoBehaviour
 
     public void MoveCamera(Vector2 _mousePosition)
     {
-        if (_mousePosition.x >= Screen.width - border && _mousePosition.x <= Screen.width - borderDead)
+        if (_mousePosition.x >= Screen.width - border && (hasDeadZone ? _mousePosition.x <= Screen.width - borderDead : true))
             targetDir += Vector2.right;
 
-        if (_mousePosition.x <= border && _mousePosition.x >= borderDead)
+        if (_mousePosition.x <= border && (hasDeadZone ? _mousePosition.x >= borderDead : true))
             targetDir += Vector2.left;
 
-        if (_mousePosition.y >= Screen.height - border && _mousePosition.y <= Screen.height - borderDead)
+        if (_mousePosition.y >= Screen.height - border && (hasDeadZone ? _mousePosition.y <= Screen.height - borderDead : true))
             targetDir += Vector2.up;
 
-        if (_mousePosition.y <= border && _mousePosition.y >= borderDead)
+        if (_mousePosition.y <= border && (hasDeadZone ? _mousePosition.y >= borderDead : true))
             targetDir += Vector2.down;
 
         if (dir != Vector2.zero && dir.magnitude > 1)

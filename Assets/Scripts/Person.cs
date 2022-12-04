@@ -6,6 +6,7 @@ public class Person : MonoBehaviour
 {
     [SerializeField] private MoneyVizualizer moneyPrefab = null;
     [SerializeField] private AudioSource moneySound = null;
+    [SerializeField] private List<RuntimeAnimatorController> animatorControllers = new List<RuntimeAnimatorController>();
     public GameManager Manager { get; private set; } = null;
     public Animator Animator { get; private set; } = null;
     public LayerOrderer LayerOrderer { get; private set; } = null;
@@ -28,6 +29,7 @@ public class Person : MonoBehaviour
     {
         Manager = GameManager.Instance;
         Animator = GetComponent<Animator>();
+        Animator.runtimeAnimatorController = animatorControllers[Random.Range(0, animatorControllers.Count)];
         LayerOrderer = GetComponent<LayerOrderer>();
         if (LayerOrderer)
         {
