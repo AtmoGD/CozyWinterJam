@@ -52,7 +52,8 @@ MonoBehaviour:
   emoticonsAnimator: {fileID: 3418804988289203319}
   moneyPrefab: {fileID: 6269513763961285111, guid: 7e9bb7df527124b45a48a20ee241be51, type: 3}
   ChristmasPresentPrefab: {fileID: 8413999809519524334, guid: bf136b96df9980b4086fa810f3a4a1bc, type: 3}
-  DropChristmasPresentChance: 0.01
+  DropChristmasPresentChance: 0.005
+  DropChristmasPresentTime: 2
   animatorControllers:
   - {fileID: 9100000, guid: 33ca5d20d535b6b4895ed38d4ead0b70, type: 2}
   - {fileID: 22100000, guid: 2e129816ef3a1e246803dcb7862f06c0, type: 2}
@@ -66,9 +67,10 @@ MonoBehaviour:
   - {fileID: 22100000, guid: 97d8eb3e8f9f28b429d03ad230c4e282, type: 2}
   - {fileID: 22100000, guid: 7d67487b2203025459cc302131f9ae40, type: 2}
   - {fileID: 22100000, guid: fc0187516d459ca49a99c0fa78c27af6, type: 2}
+  cashSource: {fileID: 0}
   speed: 1
   timeToWaitAtShop: 1
-  visitShopChance: 1
+  visitShopChance: 0.7
 --- !u!95 &1204399522
 Animator:
   serializedVersion: 4

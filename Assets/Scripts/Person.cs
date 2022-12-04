@@ -10,6 +10,7 @@ public class Person : MonoBehaviour
     [SerializeField] private float DropChristmasPresentChance = 0.01f;
     [SerializeField] private float DropChristmasPresentTime = 1f;
     [SerializeField] private List<RuntimeAnimatorController> animatorControllers = new List<RuntimeAnimatorController>();
+    [SerializeField] private AudioSource cashSource = null;
     public GameManager Manager { get; private set; } = null;
     public Animator Animator { get; private set; } = null;
     public LayerOrderer LayerOrderer { get; private set; } = null;
@@ -99,7 +100,8 @@ public class Person : MonoBehaviour
                 int money = Random.Range(moneyMin, moneyMax);
                 money = Mathf.RoundToInt(Manager.MoneyAddition + money);
 
-                AudioManager.Instance.Play("Money");
+                // AudioManager.Instance.Play("Money");
+                cashSource.Play();
 
                 MoneyVizualizer moneyVizualizer = Instantiate(moneyPrefab, transform.position, Quaternion.identity);
                 moneyVizualizer.SetMoney(money);
