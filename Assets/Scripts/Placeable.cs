@@ -8,8 +8,6 @@ public enum ObjectType
     Decoration
 }
 
-
-
 [CreateAssetMenu(fileName = "New Placeable", menuName = "Placeable")]
 public class Placeable : ScriptableObject
 {
@@ -20,6 +18,5 @@ public class Placeable : ScriptableObject
     [field: SerializeField] public int Cost { get; private set; } = 0;
     [field: SerializeField] public Vector2Int Size { get; private set; } = Vector2Int.one;
     [field: SerializeField] public ObjectType Type { get; private set; } = ObjectType.Building;
-    [field: SerializeField] public float WaitTime { get; private set; } = 1f;
     [field: SerializeField] public Vector2Int MoneyRange { get; private set; } = Vector2Int.one;
 }

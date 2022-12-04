@@ -11,6 +11,7 @@ public class UIController : MonoBehaviour
     [field: SerializeField] public GameObject BuildingsPanel { get; private set; } = null;
     [field: SerializeField] public GameObject DecorationPanel { get; private set; } = null;
     [field: SerializeField] public GameObject UpgradePanel { get; private set; } = null;
+    [field: SerializeField] public AudioSource ClickSound { get; private set; } = null;
 
     public bool IsBuildingUIActive
     {
@@ -25,6 +26,11 @@ public class UIController : MonoBehaviour
         GameUI.SetActive(true);
         BuildingUI.SetActive(false);
         OpenBuildingsPanel();
+    }
+
+    public void PlayClickSound()
+    {
+        ClickSound.Play();
     }
 
     private void Update()
