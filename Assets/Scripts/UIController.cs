@@ -1,18 +1,20 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class UIController : MonoBehaviour
 {
     [field: SerializeField] public GameManager Manager { get; private set; } = null;
     [field: SerializeField] public GameObject GameUI { get; private set; } = null;
     [field: SerializeField] public GameObject PauseUI { get; private set; } = null;
+    [field: SerializeField] public Slider MusicSlider { get; private set; } = null;
+    [field: SerializeField] public Slider SFXSlider { get; private set; } = null;
     [field: SerializeField] public TMPro.TMP_Text MoneyText { get; private set; } = null;
     [field: SerializeField] public GameObject BuildingUI { get; private set; } = null;
     [field: SerializeField] public GameObject BuildingsPanel { get; private set; } = null;
     [field: SerializeField] public GameObject DecorationPanel { get; private set; } = null;
     [field: SerializeField] public GameObject UpgradePanel { get; private set; } = null;
-    [field: SerializeField] public AudioSource ClickSound { get; private set; } = null;
 
     public bool IsBuildingUIActive
     {
@@ -28,11 +30,18 @@ public class UIController : MonoBehaviour
         BuildingUI.SetActive(false);
         PauseUI.SetActive(false);
         OpenBuildingsPanel();
+        ChangeMusicVolume();
     }
 
     public void PlayClickSound()
     {
-        ClickSound.Play();
+        AudioManager.Instance.Play("Click");
+    }
+
+    public void ChangeMusicVolume()
+    {
+        AudioManager.Instance.SetVolume(SoundType.Music, MusicSlider.value);
+        AudioManager.Instance.SetVolume(SoundType.SFX, SFXSlider.value);
     }
 
     private void Update()

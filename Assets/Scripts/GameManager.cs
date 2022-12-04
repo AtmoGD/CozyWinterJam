@@ -59,7 +59,7 @@ public class GameManager : MonoBehaviour
     [field: SerializeField] public Transform CustomerEnd { get; private set; } = null;
     [field: SerializeField] public Person CustomerPrefab { get; private set; } = null;
     [field: SerializeField] public List<StartObjectData> StartObjects { get; private set; } = new List<StartObjectData>();
-    [field: SerializeField] public AudioSource PlaceBuildingSound { get; private set; } = null;
+    // [field: SerializeField] public AudioSource PlaceBuildingSound { get; private set; } = null;
     [field: SerializeField] public Slider CustomerSlider { get; private set; } = null;
     [field: SerializeField] public Slider LoveSlider { get; private set; } = null;
     #endregion
@@ -116,7 +116,7 @@ public class GameManager : MonoBehaviour
 
     #region Private
     private float customerSpawnTimer = 0f;
-    private List<Person> customers = new List<Person>();
+    public List<Person> customers = new List<Person>();
     #endregion
 
     private void Start()
@@ -131,11 +131,13 @@ public class GameManager : MonoBehaviour
 
     public void RegisterCustomer(Person customer)
     {
+        print("Registering customer");
         customers.Add(customer);
     }
 
     public void UnregisterCustomer(Person customer)
     {
+        print("Unregistering customer");
         customers.Remove(customer);
     }
 
@@ -241,7 +243,6 @@ public class GameManager : MonoBehaviour
             if (UnityEngine.Random.Range(0f, 1f) <= CustomerSpawnChance || force)
             {
                 Person customer = Instantiate(CustomerPrefab, CustomerStart.position, Quaternion.identity);
-                customers.Add(customer);
             }
         }
     }
@@ -505,7 +506,7 @@ public class GameManager : MonoBehaviour
                             LastSelectedTiles.ForEach(t => t?.Deselect());
                             LastSelectedTiles.Clear();
 
-                            PlaceBuildingSound?.Play();
+                            AudioManager.Instance.Play("Click");
                         }
                     }
                 }
@@ -554,7 +555,7 @@ public class GameManager : MonoBehaviour
                             gameState = GameState.Playing;
                             buildState = BuildState.New;
 
-                            PlaceBuildingSound?.Play();
+                            AudioManager.Instance.Play("Click");
                         }
                     }
                 }
@@ -584,7 +585,7 @@ public class GameManager : MonoBehaviour
                             }
                         }
 
-                        PlaceBuildingSound?.Play();
+                        AudioManager.Instance.Play("Click");
                     }
                 }
                 break;
@@ -598,7 +599,7 @@ public class GameManager : MonoBehaviour
                     ConfirmDeletionPanel.SetActive(true);
                 }
 
-                PlaceBuildingSound?.Play();
+                AudioManager.Instance.Play("Click");
                 break;
         }
     }

@@ -6,7 +6,7 @@ public class Person : MonoBehaviour
 {
     [SerializeField] private Animator emoticonsAnimator = null;
     [SerializeField] private MoneyVizualizer moneyPrefab = null;
-    [SerializeField] private AudioSource moneySound = null;
+    // [SerializeField] private AudioSource moneySound = null;
     [SerializeField] private List<RuntimeAnimatorController> animatorControllers = new List<RuntimeAnimatorController>();
     public GameManager Manager { get; private set; } = null;
     public Animator Animator { get; private set; } = null;
@@ -97,7 +97,7 @@ public class Person : MonoBehaviour
                 int money = Random.Range(moneyMin, moneyMax);
                 money = Mathf.RoundToInt(Manager.MoneyAddition + money);
 
-                moneySound.Play();
+                AudioManager.Instance.Play("Money");
 
                 MoneyVizualizer moneyVizualizer = Instantiate(moneyPrefab, transform.position, Quaternion.identity);
                 moneyVizualizer.SetMoney(money);
@@ -242,7 +242,6 @@ public class Person : MonoBehaviour
         Animator.SetFloat("xDir", direction.x);
         Animator.SetFloat("yDir", direction.y);
         Animator.SetFloat("Speed", Mathf.Clamp01(Speed));
-
     }
 
 
