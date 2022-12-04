@@ -51,13 +51,12 @@ public class GameManager : MonoBehaviour
     [field: SerializeField] public CameraController CameraController { get; private set; } = null;
     [field: SerializeField] public UIController UIController { get; private set; } = null;
     [field: SerializeField] public DayTimeController DayTimeController { get; private set; } = null;
+    [field: SerializeField] public GameObject ConfirmDeletionPanel { get; private set; } = null;
     [field: SerializeField] public Transform CustomerStart { get; private set; } = null;
     [field: SerializeField] public Transform CustomerEndTile { get; private set; } = null;
     [field: SerializeField] public Transform CustomerEnd { get; private set; } = null;
     [field: SerializeField] public Person CustomerPrefab { get; private set; } = null;
     [field: SerializeField] public List<StartObjectData> StartObjects { get; private set; } = new List<StartObjectData>();
-    // [field: SerializeField] public Placeable StartPlaceable { get; private set; } = null;
-    // [field: SerializeField] public Vector2Int StartPlaceablePosition { get; private set; } = Vector2Int.zero;
     #endregion
 
     #region States
@@ -82,6 +81,7 @@ public class GameManager : MonoBehaviour
     public GameObject PreviewObject { get; private set; } = null;
     public List<Tile> LastSelectedTiles { get; private set; } = new List<Tile>();
     public PlaceableObject EditObject { get; private set; } = null;
+    public PlaceableObject DeleteObject { get; private set; } = null;
     #endregion
 
     #region Data
@@ -100,10 +100,7 @@ public class GameManager : MonoBehaviour
         Grid.DeleteGrid();
         Grid.CreateGrid();
 
-        // if (StartPlaceable != null)
-        // {
         PlaceStartObject();
-        // }
     }
 
     private void PlaceStartObject()
@@ -279,7 +276,34 @@ public class GameManager : MonoBehaviour
 
     public void ChangeToDeleteMode()
     {
+        if (gameState == GameState.Building && buildState == BuildState.Delete)
+        {
+            gameState = GameState.Playing;
+            buildState = BuildState.New;
 
+            for (int x = 0; x < Grid.Width; x++)
+            {
+                for (int y = 0; y < Grid.Height; y++)
+                {
+                    Grid.GetGridElement(x, y, out Tile tile);
+                    tile.Deselect();
+                }
+            }
+        }
+        else
+        {
+            gameState = GameState.Building;
+            buildState = BuildState.Delete;
+
+            for (int x = 0; x < Grid.Width; x++)
+            {
+                for (int y = 0; y < Grid.Height; y++)
+                {
+                    Grid.GetGridElement(x, y, out Tile tile);
+                    tile.Select();
+                }
+            }
+        }
     }
 
     public void OnMousePosition(InputAction.CallbackContext context)
@@ -317,6 +341,60 @@ public class GameManager : MonoBehaviour
 
         // if (SelectedTile)
         //     SelectedTile.Select();
+    }
+
+    public void ConfirmDeletion()
+    {
+        ConfirmDeletionPanel.SetActive(false);
+
+        Tile tile = Grid.GetGridElement(DeleteObject.transform.position);
+        if (tile.currentObject != null)
+        {
+            DeleteObject = tile.currentObject.GetComponent<PlaceableObject>();
+            foreach (Tile t in DeleteObject.placedOnTiles)
+            {
+                PathNode tileData = Grid.GridArray.Find(n => n.x == t.x && n.y == t.y);
+                Grid.GridArray.Remove(tileData);
+
+                tileData.SetIsWalkable(true);
+                Grid.GridArray.Add(tileData);
+
+                t.currentObject = null;
+            }
+
+            PlacedObjects.Remove(DeleteObject);
+            Destroy(DeleteObject.gameObject);
+        }
+
+        gameState = GameState.Playing;
+        buildState = BuildState.New;
+
+        for (int x = 0; x < Grid.Width; x++)
+        {
+            for (int y = 0; y < Grid.Height; y++)
+            {
+                Grid.GetGridElement(x, y, out Tile currentTile);
+                currentTile.Deselect();
+            }
+        }
+    }
+
+    public void DenyDeletion()
+    {
+        ConfirmDeletionPanel.SetActive(false);
+        DeleteObject = null;
+
+        gameState = GameState.Playing;
+        buildState = BuildState.New;
+
+        for (int x = 0; x < Grid.Width; x++)
+        {
+            for (int y = 0; y < Grid.Height; y++)
+            {
+                Grid.GetGridElement(x, y, out Tile tile);
+                tile.Deselect();
+            }
+        }
     }
 
     public void CheckClickPlayingBuilding()
@@ -451,6 +529,12 @@ public class GameManager : MonoBehaviour
                 }
                 break;
             case BuildState.Delete:
+                Tile deleteTile = Grid.GetGridElement(MouseWorldPosition);
+                if (deleteTile.currentObject != null)
+                {
+                    DeleteObject = deleteTile.currentObject.GetComponent<PlaceableObject>();
+                    ConfirmDeletionPanel.SetActive(true);
+                }
                 break;
         }
     }
