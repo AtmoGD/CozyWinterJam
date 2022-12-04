@@ -54,12 +54,27 @@ public class GameManager : MonoBehaviour
     [field: SerializeField] public UIController UIController { get; private set; } = null;
     [field: SerializeField] public DayTimeController DayTimeController { get; private set; } = null;
     [field: SerializeField] public GameObject ConfirmDeletionPanel { get; private set; } = null;
-    [field: SerializeField] public Transform CustomerStart { get; private set; } = null;
-    [field: SerializeField] public Transform CustomerEndTile { get; private set; } = null;
-    [field: SerializeField] public Transform CustomerEnd { get; private set; } = null;
+    [SerializeField] private List<Transform> StartPoints = new List<Transform>();
+    public Transform CustomerStart
+    {
+        get
+        {
+            return StartPoints[UnityEngine.Random.Range(0, StartPoints.Count)];
+        }
+    }
+    [SerializeField] private List<Transform> EndPoints = new List<Transform>();
+
+    public Transform CustomerEndTile
+    {
+        get
+        {
+            return EndPoints[UnityEngine.Random.Range(0, EndPoints.Count)];
+        }
+    }
+
+    public Transform CustomerEnd { get { return CustomerStart; } }
     [field: SerializeField] public Person CustomerPrefab { get; private set; } = null;
     [field: SerializeField] public List<StartObjectData> StartObjects { get; private set; } = new List<StartObjectData>();
-    // [field: SerializeField] public AudioSource PlaceBuildingSound { get; private set; } = null;
     [field: SerializeField] public Slider CustomerSlider { get; private set; } = null;
     [field: SerializeField] public Slider LoveSlider { get; private set; } = null;
     #endregion
@@ -112,6 +127,7 @@ public class GameManager : MonoBehaviour
         }
     }
     [field: SerializeField] public float MaxMoneyAddition { get; private set; } = 100f;
+    public bool GameStarted { get; private set; } = false;
     #endregion
 
     #region Private
@@ -125,19 +141,23 @@ public class GameManager : MonoBehaviour
         Grid.CreateGrid();
 
         PlaceStartObject();
+    }
 
+    public void StartGame()
+    {
+        GameStarted = true;
         SpawnCustomer(true);
     }
 
+
+
     public void RegisterCustomer(Person customer)
     {
-        print("Registering customer");
         customers.Add(customer);
     }
 
     public void UnregisterCustomer(Person customer)
     {
-        print("Unregistering customer");
         customers.Remove(customer);
     }
 
@@ -199,6 +219,11 @@ public class GameManager : MonoBehaviour
 
     private void Update()
     {
+        if (!GameStarted)
+        {
+            return;
+        }
+
         switch (gameState)
         {
             case GameState.Playing:
@@ -389,13 +414,16 @@ public class GameManager : MonoBehaviour
 
     public void CheckClickPlaying()
     {
-        // if (SelectedTile)
-        //     SelectedTile.Deselect();
+        RaycastHit2D hit = Physics2D.Raycast(MouseWorldPosition, Vector2.zero, 10f);
 
-        // SelectedTile = Grid.GetGridElement(MouseWorldPosition);
-
-        // if (SelectedTile)
-        //     SelectedTile.Select();
+        if (hit)
+        {
+            ChristmasPresent present = hit.transform.GetComponent<ChristmasPresent>();
+            if (present)
+            {
+                present.Open();
+            }
+        }
     }
 
     public void ConfirmDeletion()

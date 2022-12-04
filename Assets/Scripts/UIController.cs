@@ -6,6 +6,7 @@ using UnityEngine.UI;
 public class UIController : MonoBehaviour
 {
     [field: SerializeField] public GameManager Manager { get; private set; } = null;
+    [field: SerializeField] public Animator StartAnimator { get; private set; } = null;
     [field: SerializeField] public GameObject GameUI { get; private set; } = null;
     [field: SerializeField] public GameObject PauseUI { get; private set; } = null;
     [field: SerializeField] public Slider MusicSlider { get; private set; } = null;
@@ -15,6 +16,7 @@ public class UIController : MonoBehaviour
     [field: SerializeField] public GameObject BuildingsPanel { get; private set; } = null;
     [field: SerializeField] public GameObject DecorationPanel { get; private set; } = null;
     [field: SerializeField] public GameObject UpgradePanel { get; private set; } = null;
+    private bool startGameButtonClicked = false;
 
     public bool IsBuildingUIActive
     {
@@ -42,6 +44,19 @@ public class UIController : MonoBehaviour
     {
         AudioManager.Instance.SetVolume(SoundType.Music, MusicSlider.value);
         AudioManager.Instance.SetVolume(SoundType.SFX, SFXSlider.value);
+    }
+
+    public void StartButtonClicked()
+    {
+        if (startGameButtonClicked) return;
+
+        startGameButtonClicked = true;
+        StartAnimator.SetTrigger("FadeOut");
+    }
+
+    public void StartGame()
+    {
+        Manager.StartGame();
     }
 
     private void Update()

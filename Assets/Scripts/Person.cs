@@ -6,7 +6,9 @@ public class Person : MonoBehaviour
 {
     [SerializeField] private Animator emoticonsAnimator = null;
     [SerializeField] private MoneyVizualizer moneyPrefab = null;
-    // [SerializeField] private AudioSource moneySound = null;
+    [SerializeField] private GameObject ChristmasPresentPrefab = null;
+    [SerializeField] private float DropChristmasPresentChance = 0.01f;
+    [SerializeField] private float DropChristmasPresentTime = 1f;
     [SerializeField] private List<RuntimeAnimatorController> animatorControllers = new List<RuntimeAnimatorController>();
     public GameManager Manager { get; private set; } = null;
     public Animator Animator { get; private set; } = null;
@@ -32,7 +34,7 @@ public class Person : MonoBehaviour
     bool moneySpend = false;
 
     private float currentWaitTime = 0f;
-
+    private float currentPresentWaitTime = 0f;
     private void Start()
     {
         Manager = GameManager.Instance;
@@ -122,6 +124,24 @@ public class Person : MonoBehaviour
         }
 
         MoveAlongPath();
+
+        DropChristmasPresent();
+    }
+
+    private void DropChristmasPresent()
+    {
+        if (currentPresentWaitTime > 0)
+        {
+            currentPresentWaitTime -= Time.deltaTime;
+            return;
+        }
+
+        if (Random.Range(0f, 1f) < DropChristmasPresentChance)
+        {
+            Instantiate(ChristmasPresentPrefab, transform.position, Quaternion.identity);
+        }
+
+        currentPresentWaitTime = DropChristmasPresentTime;
     }
 
     private void GetNewPath()
@@ -178,6 +198,7 @@ public class Person : MonoBehaviour
         {
             transform.position = Vector3.MoveTowards(transform.position, Manager.CustomerEnd.position, Speed * Time.deltaTime);
 
+
             if (transform.position == Manager.CustomerEnd.position)
             {
                 Die();
@@ -192,6 +213,12 @@ public class Person : MonoBehaviour
             {
                 Vector3 targetPosition = targetTile.transform.position;
                 transform.position = Vector3.MoveTowards(transform.position, targetPosition, Speed * Time.deltaTime);
+
+                Vector3 direction = (transform.position - startPosition).normalized;
+
+                Animator.SetFloat("xDir", direction.x);
+                Animator.SetFloat("yDir", direction.y);
+                Animator.SetFloat("Speed", Mathf.Clamp01(Speed));
             }
             else
             {
@@ -237,11 +264,7 @@ public class Person : MonoBehaviour
             LayerOrderer.UpdateOrder(targetTile);
         }
 
-        Vector3 direction = (transform.position - startPosition).normalized;
 
-        Animator.SetFloat("xDir", direction.x);
-        Animator.SetFloat("yDir", direction.y);
-        Animator.SetFloat("Speed", Mathf.Clamp01(Speed));
     }
 
 

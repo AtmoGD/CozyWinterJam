@@ -36,6 +36,8 @@ public class DayTimeController : MonoBehaviour
 
     private void Update()
     {
+        if (!GameManager.GameStarted) return;
+
         DayTime.Minute += (Time.deltaTime / MinuteLength) * GameManager.WorldTimeScale;
 
         if (DayTime.Minute >= 59f)
