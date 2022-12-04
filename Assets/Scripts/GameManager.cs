@@ -534,7 +534,7 @@ public class GameManager : MonoBehaviour
                             LastSelectedTiles.ForEach(t => t?.Deselect());
                             LastSelectedTiles.Clear();
 
-                            AudioManager.Instance.Play("Click");
+                            AudioManager.Instance.Play("Place");
                         }
                     }
                 }
@@ -583,7 +583,7 @@ public class GameManager : MonoBehaviour
                             gameState = GameState.Playing;
                             buildState = BuildState.New;
 
-                            AudioManager.Instance.Play("Click");
+                            AudioManager.Instance.Play("Place");
                         }
                     }
                 }

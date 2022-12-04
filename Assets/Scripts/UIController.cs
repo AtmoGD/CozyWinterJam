@@ -40,6 +40,11 @@ public class UIController : MonoBehaviour
         AudioManager.Instance.Play("Click");
     }
 
+    public void PlayDeleteSound()
+    {
+        AudioManager.Instance.Play("Delete");
+    }
+
     public void ChangeMusicVolume()
     {
         AudioManager.Instance.SetVolume(SoundType.Music, MusicSlider.value);
