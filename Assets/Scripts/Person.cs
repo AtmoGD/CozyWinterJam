@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Person : MonoBehaviour
 {
+    [SerializeField] private Animator emoticonsAnimator = null;
     [SerializeField] private MoneyVizualizer moneyPrefab = null;
     [SerializeField] private AudioSource moneySound = null;
     [SerializeField] private List<RuntimeAnimatorController> animatorControllers = new List<RuntimeAnimatorController>();
@@ -88,6 +89,11 @@ public class Person : MonoBehaviour
 
                 Manager.Money += money;
                 moneySpend = true;
+
+                if (emoticonsAnimator)
+                {
+                    emoticonsAnimator.SetTrigger("Hearth");
+                }
             }
 
             currentWaitTime -= Time.deltaTime;
