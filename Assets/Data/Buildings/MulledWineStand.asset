@@ -16,8 +16,7 @@ MonoBehaviour:
   <ShopSprite>k__BackingField: {fileID: -771588977, guid: 949520d88d7da954ba894a24f0c2ba91, type: 3}
   <Prefab>k__BackingField: {fileID: 7578292365347038807, guid: 2c6eb4133e32b6f4b88467760bb251a8, type: 3}
   <PreviewPrefab>k__BackingField: {fileID: 3075740117135201174, guid: ff70f70fd8b1f214cbc3f8b7c50febb6, type: 3}
-  <Cost>k__BackingField: 10
+  <Cost>k__BackingField: 300
   <Size>k__BackingField: {x: 3, y: 2}
   <Type>k__BackingField: 0
-  <WaitTime>k__BackingField: 1
-  <MoneyRange>k__BackingField: {x: 5, y: 10}
+  <MoneyRange>k__BackingField: {x: 4, y: 10}

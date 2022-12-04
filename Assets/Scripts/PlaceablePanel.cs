@@ -21,7 +21,7 @@ public class PlaceablePanel : MonoBehaviour
         CostText.text = Placeable.Cost.ToString();
     }
 
-    private void OnEnable()
+    private void Update()
     {
         if (UIController.Manager.Money < Placeable.Cost)
         {

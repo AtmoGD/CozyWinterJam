@@ -5,6 +5,8 @@ using UnityEngine.InputSystem;
 using Gridsystem;
 using Grid = Gridsystem.Grid;
 using System;
+using UnityEngine.UI;
+
 
 [Serializable]
 public class StartObjectData
@@ -58,6 +60,8 @@ public class GameManager : MonoBehaviour
     [field: SerializeField] public Person CustomerPrefab { get; private set; } = null;
     [field: SerializeField] public List<StartObjectData> StartObjects { get; private set; } = new List<StartObjectData>();
     [field: SerializeField] public AudioSource PlaceBuildingSound { get; private set; } = null;
+    [field: SerializeField] public Slider CustomerSlider { get; private set; } = null;
+    [field: SerializeField] public Slider LoveSlider { get; private set; } = null;
     #endregion
 
     #region States
@@ -72,7 +76,7 @@ public class GameManager : MonoBehaviour
     #endregion
 
     #region Properties
-    public int Money { get; set; } = 1000;
+    [field: SerializeField] public int Money { get; set; } = 1000;
     public float WorldTimeScale { get; private set; } = 1f;
     public List<PlaceableObject> PlacedObjects { get; private set; } = new List<PlaceableObject>();
     public List<PlaceableObject> PlacedBuildings { get { return PlacedObjects.FindAll(x => x.Data.Type == ObjectType.Building); } }
@@ -98,14 +102,16 @@ public class GameManager : MonoBehaviour
 
     [field: SerializeField]
     private float CustomerSpawnTime { get; set; } = 1f;
+    [field: SerializeField] public int MaxCustomers { get; private set; } = 50;
     [SerializeField] private float moneyDecorationAddition = 1f;
     public float MoneyAddition
     {
         get
         {
-            return PlacedDecorations.Count * moneyDecorationAddition;
+            return Mathf.Clamp(PlacedDecorations.Count * moneyDecorationAddition, 0, MaxMoneyAddition);
         }
     }
+    [field: SerializeField] public float MaxMoneyAddition { get; private set; } = 100f;
     #endregion
 
     #region Private
@@ -119,6 +125,28 @@ public class GameManager : MonoBehaviour
         Grid.CreateGrid();
 
         PlaceStartObject();
+
+        SpawnCustomer(true);
+    }
+
+    public void RegisterCustomer(Person customer)
+    {
+        customers.Add(customer);
+    }
+
+    public void UnregisterCustomer(Person customer)
+    {
+        customers.Remove(customer);
+    }
+
+    public void PauseGame()
+    {
+        WorldTimeScale = 0f;
+    }
+
+    public void UnpauseGame()
+    {
+        WorldTimeScale = 1f;
     }
 
     private void PlaceStartObject()
@@ -187,6 +215,14 @@ public class GameManager : MonoBehaviour
             CameraController.MoveCamera(MousePosition);
 
         SpawnCustomer();
+
+        UpdateSlider();
+    }
+
+    private void UpdateSlider()
+    {
+        CustomerSlider.value = customers.Count / (float)MaxCustomers;
+        LoveSlider.value = MoneyAddition / MaxMoneyAddition;
     }
 
     public void PlayingState()
@@ -194,15 +230,15 @@ public class GameManager : MonoBehaviour
 
     }
 
-    public void SpawnCustomer()
+    public void SpawnCustomer(bool force = false)
     {
-        if (PlacedBuildings.Count == 0) return;
+        if (PlacedBuildings.Count == 0 || customers.Count >= MaxCustomers) return;
 
         customerSpawnTimer += Time.deltaTime;
-        if (customerSpawnTimer >= CustomerSpawnTime)
+        if (customerSpawnTimer >= CustomerSpawnTime || force)
         {
             customerSpawnTimer = 0f;
-            if (UnityEngine.Random.Range(0f, 1f) <= CustomerSpawnChance)
+            if (UnityEngine.Random.Range(0f, 1f) <= CustomerSpawnChance || force)
             {
                 Person customer = Instantiate(CustomerPrefab, CustomerStart.position, Quaternion.identity);
                 customers.Add(customer);

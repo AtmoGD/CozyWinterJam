@@ -70,7 +70,7 @@ TextureImporter:
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 1
+    textureCompression: 0
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -8829,13 +8829,13 @@ TextureImporter:
       Snow_Tiles_236: 654934730
       Snow_Tiles_142: 2106478600
       Snow_Tiles_12: 1788826554
+      Snow_Tiles_283: 744681052
       Snow_Tiles_7: -187099629
       Snow_Tiles_22: 702366999
-      Snow_Tiles_283: 744681052
-      Snow_Tiles_185: -620084865
       Snow_Tiles_276: -949944400
       Snow_Tiles_193: -629973208
       Snow_Tiles_373: 532215555
+      Snow_Tiles_185: -620084865
       Snow_Tiles_383: 1176229407
       Snow_Tiles_158: 2081112309
       Snow_Tiles_265: 1099718187
@@ -8878,8 +8878,8 @@ TextureImporter:
       Snow_Tiles_17: 1676051952
       Snow_Tiles_126: -1334748889
       Snow_Tiles_21: 790212139
-      Snow_Tiles_176: -1088692411
       Snow_Tiles_378: -587050149
+      Snow_Tiles_176: -1088692411
       Snow_Tiles_94: -1963898399
       Snow_Tiles_277: -1624889215
       Snow_Tiles_41: 1163003925
@@ -8910,8 +8910,8 @@ TextureImporter:
       Snow_Tiles_96: -93871688
       Snow_Tiles_179: 1623743354
       Snow_Tiles_100: 1266086654
-      Snow_Tiles_295: -858162641
       Snow_Tiles_137: 897851337
+      Snow_Tiles_295: -858162641
       Snow_Tiles_325: -1605857796
       Snow_Tiles_255: 2090820686
       Snow_Tiles_30: 41884358
@@ -8919,10 +8919,10 @@ TextureImporter:
       Snow_Tiles_270: 483341495
       Snow_Tiles_364: -337071015
       Snow_Tiles_15: -502389279
-      Snow_Tiles_152: 15942674
       Snow_Tiles_214: -172350172
       Snow_Tiles_352: 79128254
       Snow_Tiles_372: 478037507
+      Snow_Tiles_152: 15942674
       Snow_Tiles_314: 239515568
       Snow_Tiles_134: -1780145944
       Snow_Tiles_52: 166706330
@@ -8995,9 +8995,9 @@ TextureImporter:
       Snow_Tiles_119: 1704563947
       Snow_Tiles_19: 1083322675
       Snow_Tiles_101: 199253424
-      Snow_Tiles_272: 1897274318
-      Snow_Tiles_74: -675568126
       Snow_Tiles_365: 284566190
+      Snow_Tiles_74: -675568126
+      Snow_Tiles_272: 1897274318
       Snow_Tiles_90: -777084468
       Snow_Tiles_131: 780583345
       Snow_Tiles_209: 149560049
@@ -9056,14 +9056,14 @@ TextureImporter:
       Snow_Tiles_299: 297528913
       Snow_Tiles_133: 86885781
       Snow_Tiles_170: 1308309388
-      Snow_Tiles_23: 1904071260
       Snow_Tiles_228: -1506349683
+      Snow_Tiles_23: 1904071260
       Snow_Tiles_81: 1362454921
       Snow_Tiles_195: 2113282160
       Snow_Tiles_175: 427336808
       Snow_Tiles_327: -2044624350
-      Snow_Tiles_235: 2040725815
       Snow_Tiles_338: 563618602
+      Snow_Tiles_235: 2040725815
       Snow_Tiles_231: 1794261454
       Snow_Tiles_349: -584467042
       Snow_Tiles_66: -429876835

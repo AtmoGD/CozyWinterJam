@@ -15,8 +15,15 @@ public class Person : MonoBehaviour
     private List<PlaceableObject> shopsToVisit = new List<PlaceableObject>();
     private List<Vector2Int> path = new List<Vector2Int>();
     private Vector2Int currentTargetTile = Vector2Int.zero;
-
-    [SerializeField] private float speed = 3f;
+    [SerializeField] private float speed = 1f;
+    [SerializeField]
+    private float Speed
+    {
+        get
+        {
+            return speed * Manager.WorldTimeScale;
+        }
+    }
     [SerializeField] private float timeToWaitAtShop = 1f;
     [SerializeField] private float visitShopChance = 0.4f;
 
@@ -29,6 +36,8 @@ public class Person : MonoBehaviour
     private void Start()
     {
         Manager = GameManager.Instance;
+        Manager.RegisterCustomer(this);
+
         Animator = GetComponent<Animator>();
         Animator.runtimeAnimatorController = animatorControllers[Random.Range(0, animatorControllers.Count)];
         LayerOrderer = GetComponent<LayerOrderer>();
@@ -44,8 +53,14 @@ public class Person : MonoBehaviour
         if (path.Count <= 0)
         {
             print("No path found on stat shopping list. Gonna destroy myself");
-            Destroy(gameObject);
+            Die();
         }
+    }
+
+    public void Die()
+    {
+        Manager.UnregisterCustomer(this);
+        Destroy(gameObject);
     }
 
     private void ChooseRandomShopList()
@@ -161,11 +176,11 @@ public class Person : MonoBehaviour
 
         if (leaving)
         {
-            transform.position = Vector3.MoveTowards(transform.position, Manager.CustomerEnd.position, speed * Time.deltaTime);
+            transform.position = Vector3.MoveTowards(transform.position, Manager.CustomerEnd.position, Speed * Time.deltaTime);
 
             if (transform.position == Manager.CustomerEnd.position)
             {
-                Destroy(gameObject);
+                Die();
                 return;
             }
         }
@@ -176,7 +191,7 @@ public class Person : MonoBehaviour
             if (transform.position != targetTile.transform.position)
             {
                 Vector3 targetPosition = targetTile.transform.position;
-                transform.position = Vector3.MoveTowards(transform.position, targetPosition, speed * Time.deltaTime);
+                transform.position = Vector3.MoveTowards(transform.position, targetPosition, Speed * Time.deltaTime);
             }
             else
             {
@@ -226,6 +241,7 @@ public class Person : MonoBehaviour
 
         Animator.SetFloat("xDir", direction.x);
         Animator.SetFloat("yDir", direction.y);
+        Animator.SetFloat("Speed", Mathf.Clamp01(Speed));
 
     }
 

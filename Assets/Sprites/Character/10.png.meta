@@ -70,7 +70,7 @@ TextureImporter:
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 1
+    textureCompression: 0
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -847,9 +847,9 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
+      10_28: 1659310833
       10_4: 1659521796
       10_7: 1836963965
-      10_31: -451158878
       10_11: -1204785001
       10_2: 816058839
       10_13: 1659214498
@@ -874,10 +874,10 @@ TextureImporter:
       10_17: -1800792140
       10_3: -338037969
       10_15: 421503270
+      10_24: 458769976
       10_6: 561065450
       10_9: 1592273501
-      10_28: 1659310833
-      10_24: 458769976
+      10_31: -451158878
       10_29: -1187425128
   spritePackingTag: 
   pSDRemoveMatte: 0
