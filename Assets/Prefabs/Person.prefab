@@ -57,6 +57,14 @@ MonoBehaviour:
   - {fileID: 22100000, guid: 2e129816ef3a1e246803dcb7862f06c0, type: 2}
   - {fileID: 22100000, guid: dc66c05f8200ae9418878b25b46498b7, type: 2}
   - {fileID: 22100000, guid: 8298418990f4eb84199cf05ce0dc2522, type: 2}
+  - {fileID: 22100000, guid: 03f9ec1283640bd44ac774fc68db4a8d, type: 2}
+  - {fileID: 22100000, guid: 78290f042a184f84bbc6012710bc7b31, type: 2}
+  - {fileID: 22100000, guid: 4e056b1395df7f143bc97ab3ccf0ba65, type: 2}
+  - {fileID: 22100000, guid: fb78dee930a02454195f665ea4a47880, type: 2}
+  - {fileID: 22100000, guid: e54322adf4f93ce4ea049414bd2136af, type: 2}
+  - {fileID: 22100000, guid: 97d8eb3e8f9f28b429d03ad230c4e282, type: 2}
+  - {fileID: 22100000, guid: 7d67487b2203025459cc302131f9ae40, type: 2}
+  - {fileID: 22100000, guid: fc0187516d459ca49a99c0fa78c27af6, type: 2}
   speed: 1
   timeToWaitAtShop: 1
   visitShopChance: 1
@@ -70,7 +78,7 @@ Animator:
   m_GameObject: {fileID: 2516699251123174872}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 22100000, guid: 8298418990f4eb84199cf05ce0dc2522, type: 2}
+  m_Controller: {fileID: 22100000, guid: fc0187516d459ca49a99c0fa78c27af6, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0

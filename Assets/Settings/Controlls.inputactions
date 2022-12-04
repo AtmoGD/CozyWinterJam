@@ -56,6 +56,17 @@
                 },
                 {
                     "name": "",
+                    "id": "40c47cf1-5886-417d-ac0c-dd11820ef4c9",
+                    "path": "<Touchscreen>/delta",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "MousePosition",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
                     "id": "36078d54-8a87-45ed-838d-d87386d2792a",
                     "path": "<Mouse>/delta",
                     "interactions": "",
@@ -69,6 +80,17 @@
                     "name": "",
                     "id": "74361e51-1dae-420d-9958-269cce6658e6",
                     "path": "<Mouse>/leftButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Click",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "8f0bd494-e755-4590-aadf-42cdf025c9fc",
+                    "path": "<Touchscreen>/Press",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
